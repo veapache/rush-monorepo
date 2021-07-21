@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@rush-temp/kuna-my-package': file:./projects/kuna-my-package.tgz
   '@rush-temp/ts-jest-config': file:./projects/ts-jest-config.tgz
   '@rush-temp/veapache-npm-ts-package': file:./projects/veapache-npm-ts-package.tgz
   '@types/jest': ^26.0.24
@@ -15,6 +16,7 @@ specifiers:
   typescript: ^4.3.5
 
 dependencies:
+  '@rush-temp/kuna-my-package': file:projects/kuna-my-package.tgz
   '@rush-temp/ts-jest-config': file:projects/ts-jest-config.tgz
   '@rush-temp/veapache-npm-ts-package': file:projects/veapache-npm-ts-package.tgz
   '@types/jest': 26.0.24
@@ -3372,18 +3374,38 @@ packages:
       yargs-parser: 20.2.9
     dev: false
 
+  file:projects/kuna-my-package.tgz:
+    resolution: {integrity: sha512-FQvfdSwLj4BiInWlEptEmTH4XyUsie1oo7EG+qoQZmhWwZTxGBjKFdzL1Xv8voSeq2zmRoZBMZXMlF3E8KqRHA==, tarball: file:projects/kuna-my-package.tgz}
+    name: '@rush-temp/kuna-my-package'
+    version: 0.0.0
+    dependencies:
+      '@types/jest': 26.0.24
+      '@typescript-eslint/eslint-plugin': 4.28.4_b1648df9f9ba40bdeef3710a5a5af353
+      '@typescript-eslint/parser': 4.28.4_eslint@7.31.0+typescript@4.3.5
+      eslint: 7.31.0
+      jest: 27.0.6
+      prettier: 2.3.2
+      ts-jest: 27.0.3_jest@27.0.6+typescript@4.3.5
+      typescript: 4.3.5
+    transitivePeerDependencies:
+      - bufferutil
+      - canvas
+      - node-notifier
+      - supports-color
+      - ts-node
+      - utf-8-validate
+    dev: false
+
   file:projects/ts-jest-config.tgz:
-    resolution: {integrity: sha512-LVMg6bBHG6N0PMP3D0lZCWgtAdz88lkn82V2NQc21zqvJo6zA6SpwlRCJMFgM1P3wfHHEUyXW7qPh4PrFgiWzg==, tarball: file:projects/ts-jest-config.tgz}
+    resolution: {integrity: sha512-3JNLOoUinKEGPcAoHqNZOMDnL+rD7sLcYir3wAuMJqnUmHBnsjaYicgMOY1FSmwlLSgdPM1lrTsasz8aw0QcVw==, tarball: file:projects/ts-jest-config.tgz}
     name: '@rush-temp/ts-jest-config'
     version: 0.0.0
     dependencies:
       eslint: 7.31.0
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   file:projects/veapache-npm-ts-package.tgz:
-    resolution: {integrity: sha512-U17d2BKoF7buadO9IqWAYGfyZWwjHX5FMB9I3E83O0FoO65cwgJKQdXj6A2K8ESAosKXVRwSHnvktHntoxdWQg==, tarball: file:projects/veapache-npm-ts-package.tgz}
+    resolution: {integrity: sha512-TChP1zqDI9rSdz3SVGc/Jq2LRIYrMTNLbbb7780F61icVUSQH7/OlPiQEno/ps5M3v0Bkk5j/yPttDXMiPDLdA==, tarball: file:projects/veapache-npm-ts-package.tgz}
     name: '@rush-temp/veapache-npm-ts-package'
     version: 0.0.0
     dependencies:

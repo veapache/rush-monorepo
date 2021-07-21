@@ -394,13 +394,13 @@
       "projectFolder": "libraries/veapache-npm-ts-package"
     },
     {
+      "packageName": "kuna-my-package",
+      "projectFolder": "libraries/kuna-my-package"
+    },
+    {
       "packageName": "ts-jest-config",
       "projectFolder": "configs/ts-jest-config"
     }
-    // {
-    //   "packageName": "volevol-npm-package",
-    //   "projectFolder": "libraries/volevol-npm-package"
-    // },
     // {
     //   "packageName": "20_07_21project",
     //   "projectFolder": "libraries/20_07_21test"
