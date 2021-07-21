@@ -1,0 +1,43 @@
+{
+  "name": "veapache-npm-ts-package",
+  "version": "1.0.2",
+  "description": "",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "coverage": "jest --collect-coverage",
+    "eslint": "eslint 'src/**/*.ts'",
+    "eslint:fix": "eslint --fix 'src/**/*.ts'",
+    "prettier": "prettier 'src/**/*.ts'",
+    "prettier:fix": "prettier --write 'src/**/*.ts'",
+    "prepare" : "npm run build",
+    "prepublishOnly" : "npm run test && npm run coverage && npm run eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/veapache/veapache-npm-ts-package.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/veapache/veapache-npm-ts-package/issues"
+  },
+  "homepage": "https://github.com/veapache/veapache-npm-ts-package#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "eslint": "^7.31.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "ts-jest-config": "~1.0.0"
+  }
+}
