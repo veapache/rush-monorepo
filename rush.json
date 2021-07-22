@@ -395,7 +395,7 @@
     },
     {
       "packageName": "kuna-my-package",
-      "projectFolder": "libraries/kuna-my-package"
+      "projectFolder": "libraries/volevol-npm-ts-package"
     },
     {
       "packageName": "ts-jest-config",

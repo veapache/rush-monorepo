@@ -1,0 +1,48 @@
+{
+  "name": "kuna-my-package",
+  "version": "1.0.0",
+  "description": "Sum two numbers.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {  
+    "test": "jest",
+    "test-coverage": "jest --coverage",
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",    
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/volevol/volevol-npm-ts-package.git"
+  },
+  "keywords": [
+    "sum"
+  ],
+  "author": "Ivan Fedorusov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/volevol/volevol-npm-ts-package/issues"
+  },
+  "homepage": "https://github.com/volevol/volevol-npm-ts-package#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "eslint": "^7.31.0",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.5"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "dependencies": {
+    "ts-jest-config": "~1.0.0"
+  }
+}
