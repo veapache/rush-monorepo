@@ -1,0 +1,50 @@
+{
+  "name": "alex01aik-npm-ts-package",
+  "version": "1.0.0",
+  "description": "I am trying one more time to build the default project.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "eslint": "tslint -p tsconfig.json",
+    "eslint:fix": "eslint --fix 'src/**/*.ts'",
+    "prettier": "prettier --write \"src/**/*.ts\"",
+    "prettier:fix": "prettier --write 'src/**/*.ts'",
+    "coverage": "jest --collect-coverage",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run test && npm run coverage && npm run eslint"
+  },
+  "author": "alex01aik",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alex01aik/alex01aik_started_pack.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Alex01aik/alex01aik_started_pack/issues"
+  },
+  "homepage": "https://github.com/Alex01aik/alex01aik_started_pack#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.14.8",
+    "@babel/node": "^7.14.7",
+    "@babel/preset-env": "^7.14.8",
+    "@types/jest": "^26.0.24",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "eslint": "^7.31.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "ts-jest": "^27.0.4",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "ts-jest-config": "~1.0.0"
+  }
+}
