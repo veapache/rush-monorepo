@@ -2,6 +2,11 @@
   "extends": "ts-jest-config/tsconfig-base.json",
   "compilerOptions": {
       "outDir": "./lib",
+      "sourceMap": true,
+      "strict": true,
+      "lib": ["esnext"],
+      "esModuleInterop": true,
+      "strictNullChecks": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/__tests__/*"]
