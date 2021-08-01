@@ -386,7 +386,11 @@
     },
     {
       "packageName": "alex01aik-npm-ts-package",
-      "projectFolder": "libraries/alex01aik-npm-ts-package"
+      "projectFolder": "libraries/alex01aik"
+    },
+    {
+      "packageName": "alex01aik-nest-app",
+      "projectFolder": "libraries/alex01aik-nest-app"
     },
     {
       "packageName": "kuna-my-package",
