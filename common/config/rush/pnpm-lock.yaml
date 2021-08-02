@@ -7543,7 +7543,7 @@ packages:
     dev: false
 
   file:projects/alex01aik-nest-app.tgz_@babel+core@7.14.8:
-    resolution: {integrity: sha512-h7GDOnKy4Gb7lncMq9KBTa/ZR0/h7qpT7PcfBPp0m1BaAq+1P+580SZOcUac9An0wxCF15IaH2oD74ql0VOHbA==, tarball: file:projects/alex01aik-nest-app.tgz}
+    resolution: {integrity: sha512-UFAXL/HtkXQcIdS6cwVVttNk0izNVLpsOv9WJDDmr7oK+QYoz2oFipEFVssvVvGIUoaor5qGaZX/iv5wAHHY+Q==, tarball: file:projects/alex01aik-nest-app.tgz}
     id: file:projects/alex01aik-nest-app.tgz
     name: '@rush-temp/alex01aik-nest-app'
     version: 0.0.0
@@ -7554,6 +7554,7 @@ packages:
       '@nestjs/platform-express': 8.0.5_718ee7bbed66880b09432508ad4ff39f
       '@nestjs/schematics': 8.0.2_typescript@4.3.5
       '@nestjs/testing': 8.0.5_9f10de242ac15a981b87d23200dacf0a
+      '@prisma/client': 2.28.0_prisma@2.28.0
       '@types/express': 4.17.13
       '@types/jest': 26.0.24
       '@types/node': 16.4.9
@@ -7565,6 +7566,7 @@ packages:
       eslint-plugin-prettier: 3.4.0_5a48a349ffec60f5257b5f148f5199c3
       jest: 27.0.6_ts-node@10.1.0
       prettier: 2.3.2
+      prisma: 2.28.0
       reflect-metadata: 0.1.13
       rimraf: 3.0.2
       rxjs: 7.3.0
