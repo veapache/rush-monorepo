@@ -13,7 +13,7 @@ export class UsersService {
   async createUser(body) {
     return await this.prisma.user.create({
       data: {
-        name: body.name,
+        username: body.name,
         email: body.email,
       },
     });

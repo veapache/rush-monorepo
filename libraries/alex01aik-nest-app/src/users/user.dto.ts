@@ -1,5 +1,5 @@
 class User {
-  name: string;
+  username: string;
   email: string;
   articles?: Array<any>;
   comments?: Array<any>;

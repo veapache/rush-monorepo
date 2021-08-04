@@ -11,7 +11,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
       update: {},
       create: {
         email: 'a@prisma.io',
-        name: 'Alex',
+        username: 'Alex',
       },
     });
     const bob = await prisma.user.upsert({
@@ -19,7 +19,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
       update: {},
       create: {
         email: 'b@prisma.io',
-        name: 'Bob',
+        username: 'Bob',
       },
     });
     console.log({ alex, bob });
