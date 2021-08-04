@@ -16,7 +16,7 @@ model Article {
   published  Boolean   @default(false)
   author     User      @relation(fields: [authorId], references: [id])
   authorId   String
-  comment    Comment[]
+  comments   Comment[]
   categoryId String
   category   Category  @relation(fields: [categoryId], references: [id])
 }
@@ -33,9 +33,9 @@ model Comment {
 model User {
   id       String    @id @default(uuid())
   email    String    @unique
-  name     String
+  username String
   articles Article[]
-  comment  Comment[]
+  comments Comment[]
 }
 
 model Category {
