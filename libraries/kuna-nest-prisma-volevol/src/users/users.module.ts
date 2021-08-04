@@ -3,8 +3,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { UsersController } from './users.controller';
 
 @Module({
-  controllers: [UsersController],
   imports: [PrismaModule],
-  exports: [UsersController]
+  controllers: [UsersController]
 })
 export class UsersModule {}
