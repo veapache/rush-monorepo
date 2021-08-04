@@ -1,0 +1,37 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"  
+  previewFeatures = ["referentialActions"]
+}
+
+model User {
+  id        String  @id @default(uuid())
+  email     String  @unique
+  name      String?
+  posts     Post[]
+}
+
+model Post {
+  id        String  @default(uuid()) @id
+  userId    String
+  autoId    String
+  delivery  String  @default("pick up")
+  payment   String  @default("cash")
+  address   String  @default("none")
+  User      User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  Auto      Auto    @relation(fields: [autoId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+}
+
+model Auto {
+  id        String  @default(uuid()) @id
+  brand     String
+  model     String
+  cost      Int
+  fuelLiter Int
+  Post      Post[]
+}
