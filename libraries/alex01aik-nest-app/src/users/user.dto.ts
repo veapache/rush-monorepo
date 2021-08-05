@@ -1,6 +1,13 @@
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+
 class User {
+  @IsString()
+  @IsNotEmpty()
   username: string;
+  @IsEmail()
   email: string;
+  @IsNotEmpty()
+  password: string;
   articles?: Array<any>;
   comments?: Array<any>;
 }

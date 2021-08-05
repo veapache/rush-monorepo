@@ -1,22 +1,22 @@
 -- CreateTable
 CREATE TABLE "Article" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "title" VARCHAR(255) NOT NULL,
     "content" TEXT,
     "published" BOOLEAN NOT NULL DEFAULT false,
-    "authorId" INTEGER NOT NULL,
-    "categoryId" INTEGER NOT NULL,
+    "authorId" TEXT NOT NULL,
+    "categoryId" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Comment" (
-    "id" SERIAL NOT NULL,
-    "userId" INTEGER NOT NULL,
-    "articleId" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "articleId" TEXT NOT NULL,
     "body" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
@@ -24,16 +24,17 @@ CREATE TABLE "Comment" (
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Category" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );
