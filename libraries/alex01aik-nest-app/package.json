@@ -22,7 +22,8 @@
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
     "init-postgres": "docker network create --subnet=15.0.0.0/16 --gateway=15.0.0.1 kuna-network",
     "up-postgres": "docker-compose up -d",
-    "down-postgres": "docker-compose down"
+    "down-postgres": "docker-compose down",
+    "run-app": "docker-compose up -d | prisma migrate dev --name init | nest start --watch"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
