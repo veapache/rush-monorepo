@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Order" ADD COLUMN     "address" INTEGER NOT NULL DEFAULT 0;
