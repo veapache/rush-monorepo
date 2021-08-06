@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, UsePipes} from '@nestjs/common';
+import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserDto } from './users.dto';
 
@@ -7,21 +8,31 @@ export class UsersController {
     constructor(private readonly prismaService: PrismaService) {}
 
     @Get()
-    async findAll(): Promise<UserDto[]> {
+    async getAll(): Promise<UserDto[]> {
         return await this.prismaService.user.findMany()
     }
 
+    // @UsePipes(ValidationPipe)
+
+    // @Get('/:id')
+    // async getByUserId(@Param('id', new ParseUUIDPipe({version: '5'})) id): Promise<UserDto> {
+    //     return this.prismaService.user.findUnique({
+    //       where: id
+    //     })
+    // }
+
+
     @Get('/:id')
-    async getByUserId(@Param('id') id): Promise<UserDto> {
+    async getById(@Param('id') id): Promise<UserDto> {
         return this.prismaService.user.findUnique({
           where: {
-            id
-          }
+              id
+            }
         })
     }
-
+ 
     @Get('/:id/orders')
-    async getOrdersByUserId(@Param('id') id){
+    async getOrdersById(@Param('id') id) {
         return this.prismaService.user.findUnique({
             where: { 
                 id 
@@ -34,13 +45,15 @@ export class UsersController {
         })
     }
 
+    @UsePipes(ValidationPipe)
     @Post()
-    async create(@Body() {name, email, password}: UserDto): Promise<UserDto> {
+    async createUser(@Body() {name, email, password}: UserDto): Promise<UserDto> {
         return await this.prismaService.user.create({
             data: {name, email, password}
         })
     }
 
+    @UsePipes(ValidationPipe)
     @Put('/:id')
     async updateUser(@Param('id') id: string, @Body() data: UserDto): Promise<UserDto>  {
         return this.prismaService.user.update({
@@ -52,7 +65,7 @@ export class UsersController {
     }
 
     @Delete('/:id')
-    async removeUser(@Param('id') id: string): Promise<UserDto>  {
+    async deleteUser(@Param('id') id: string): Promise<UserDto>  {
         return this.prismaService.user.delete({
             where: {
                 id

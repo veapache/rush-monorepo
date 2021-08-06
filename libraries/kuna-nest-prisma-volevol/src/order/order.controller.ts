@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, UsePipes } from '@nestjs/common';
+import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { OrderDto } from './order.dto';
 
@@ -7,21 +8,22 @@ export class OrderController {
     constructor(private readonly prismaService: PrismaService) {}
 
     @Get()
-    async findAll(): Promise<OrderDto[]> {
+    async getAll(): Promise<OrderDto[]> {
         return await this.prismaService.order.findMany()
     }
 
     @Get('/:id')
-    async getByOrdersId(@Param('id') id): Promise<OrderDto> {
+    async getById(@Param('id') id): Promise<OrderDto> {
         return this.prismaService.order.findUnique({
           where: {
             id
           }
         })
     }
-
+    
+    @UsePipes(ValidationPipe)
     @Post()
-    async create(@Body() {userId, vehicleId}: OrderDto): Promise<OrderDto> {
+    async createOrder(@Body() {userId, vehicleId}: OrderDto): Promise<OrderDto> {
         return await this.prismaService.order.create({
             data: {userId, vehicleId}
         })
@@ -38,7 +40,7 @@ export class OrderController {
     }
 
     @Delete('/:id')
-    async removeOrder(@Param('id') id: string): Promise<OrderDto>  {
+    async deleteOrder(@Param('id') id: string): Promise<OrderDto>  {
         return this.prismaService.order.delete({
             where: {
                 id
