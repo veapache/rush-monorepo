@@ -23,11 +23,11 @@ export class UsersController {
     return this.usersService.getUser(id);
   }
   @Put(':id')
-  async changeUser(
+  async updateUser(
     @Param('id') id: string,
-    @Body() changedfields: string,
+    @Body() changedFields: string,
   ): Promise<UpdateUserDto> {
-    return this.usersService.changeUser(id, changedfields);
+    return this.usersService.updateUser(id, changedFields);
   }
   @Delete(':id')
   async deleteUser(@Param('id') id: string): Promise<UpdateUserDto> {
