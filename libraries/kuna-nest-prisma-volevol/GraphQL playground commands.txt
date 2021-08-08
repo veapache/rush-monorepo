@@ -1,0 +1,126 @@
+# --------------------------------------------------------------------------
+# ---------------------------------- USER ----------------------------------
+# --------------------------------------------------------------------------
+
+query allUsers {
+  allUsers {
+    id
+    name
+    email
+    password
+  }
+}
+
+mutation createUser {
+  createUser(data: { name: "Alex", email: "alex@alex.ua", password: "12345" }) {
+    id
+  }
+}
+
+mutation deleteUser {
+  deleteUser(
+    id: "3f084fb9-5adb-4816-83ff-8f25264277b7"
+  ) {
+    id
+  }
+}
+
+query ordersByUser {
+   ordersByUser (
+    data: {
+      id: "3f084fb9-5adb-4816-83ff-8f25264277b7"
+    }
+  ) {
+    id
+    userId
+    vehicleId
+  }
+}
+
+# -----------------------------------------------------------------------------
+# ---------------------------------- VEHICLE ----------------------------------
+# -----------------------------------------------------------------------------
+
+query allVehicles {
+  allVehicles {
+    id
+    brand
+    model
+    year
+    cost
+  }
+}
+
+mutation createVehicle {
+  createVehicle(data: { brand: "Audi", model: "RS Q8"}) {
+    id
+  }
+}
+
+mutation deleteVehicle {
+  deleteVehicle(
+    id: "4fa8990e-b01f-4bba-81e6-ab7442e25ed0"
+  ) {
+    id
+  }
+}
+
+query ordersByVehicle {
+   ordersByVehicle (
+    data: {
+      id: "4fa8990e-b01f-4bba-81e6-ab7442e25ed0"
+    }
+  ) {
+    id
+    userId
+    vehicleId
+  }
+}
+
+# ---------------------------------------------------------------------------
+# ---------------------------------- ORDER ----------------------------------
+# ---------------------------------------------------------------------------
+
+query allOrders {
+  allOrders {
+    id
+    userId
+    vehicleId
+    delivery
+    payment
+    address
+  }
+}
+
+mutation createOrder {
+  createOrder(
+    data: {
+      userId: "3f084fb9-5adb-4816-83ff-8f25264277b7"
+      vehicleId: "930fc364-a2bf-496f-9235-6c4a2defd3a0"
+    }
+  ) {
+    id
+    userId
+    vehicleId
+  }
+}
+
+mutation deleteOrder {
+  deleteOrder(
+    id: "35407567-0d98-40fb-9697-325ace633c73"
+  ) {
+    id
+    userId
+    vehicleId
+  }
+}
+
+query orderById {
+  orderById(
+    id: "098e7d05-b57a-47f1-b3d5-cb7de3466d62"
+  ) {
+    id
+    userId
+   	vehicleId
+  }
+}
