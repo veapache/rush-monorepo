@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, UsePipes } from '@nestjs/common';
+import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { VehicleDto } from './vehicle.dto';
 
@@ -7,12 +8,12 @@ export class VehicleController {
     constructor(private readonly prismaService: PrismaService) {}
 
     @Get()
-    async findAll(): Promise<VehicleDto[]> {
+    async getAll(): Promise<VehicleDto[]> {
         return await this.prismaService.vehicle.findMany()
     }
 
     @Get('/:id')
-    async getByVehiclesId(@Param('id') id): Promise<VehicleDto> {
+    async getById(@Param('id') id): Promise<VehicleDto> {
         return this.prismaService.vehicle.findUnique({
           where: {
             id
@@ -20,8 +21,9 @@ export class VehicleController {
         })
     }
 
+    @UsePipes(ValidationPipe)
     @Post()
-    async create(@Body() {brand, model}: VehicleDto): Promise<VehicleDto> {
+    async createVehicle(@Body() {brand, model}: VehicleDto): Promise<VehicleDto> {
         return await this.prismaService.vehicle.create({
             data:  {brand, model}
         })
@@ -38,7 +40,7 @@ export class VehicleController {
     }
 
     @Delete('/:id')
-    async removeVehicle(@Param('id') id: string): Promise<VehicleDto>  {
+    async deleteVehicle(@Param('id') id: string): Promise<VehicleDto>  {
         return this.prismaService.vehicle.delete({
             where: {
                 id

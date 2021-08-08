@@ -1,0 +1,36 @@
+lockfileVersion: 5.3
+
+specifiers:
+  class-transformer: ^0.4.0
+  class-validator: ^0.13.1
+
+dependencies:
+  class-transformer: 0.4.0
+  class-validator: 0.13.1
+
+packages:
+
+  /@types/validator/13.6.3:
+    resolution: {integrity: sha512-fWG42pMJOL4jKsDDZZREnXLjc3UE0R8LOJfARWYg6U966rxDT7TYejYzLnUF5cvSObGg34nd0+H2wHHU5Omdfw==}
+    dev: false
+
+  /class-transformer/0.4.0:
+    resolution: {integrity: sha512-ETWD/H2TbWbKEi7m9N4Km5+cw1hNcqJSxlSYhsLsNjQzWWiZIYA1zafxpK9PwVfaZ6AqR5rrjPVUBGESm5tQUA==}
+    dev: false
+
+  /class-validator/0.13.1:
+    resolution: {integrity: sha512-zWIeYFhUitvAHBwNhDdCRK09hWx+P0HUwFE8US8/CxFpMVzkUK8RJl7yOIE+BVu2lxyPNgeOaFv78tLE47jBIg==}
+    dependencies:
+      '@types/validator': 13.6.3
+      libphonenumber-js: 1.9.23
+      validator: 13.6.0
+    dev: false
+
+  /libphonenumber-js/1.9.23:
+    resolution: {integrity: sha512-+qWSwPyJWSV9ukb7Iu21WpWEP7irFWR1ojoYykL2itAfXKj9FjsTjS6PPZoPUOZk+1kxliHjwsilqA1TNeOhuQ==}
+    dev: false
+
+  /validator/13.6.0:
+    resolution: {integrity: sha512-gVgKbdbHgtxpRyR8K0O6oFZPhhB5tT1jeEHZR0Znr9Svg03U0+r9DXWMrnRAB+HtCStDQKlaIZm42tVsVjqtjg==}
+    engines: {node: '>= 0.10'}
+    dev: false

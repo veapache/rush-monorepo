@@ -1,0 +1,14 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "code": "ERR_PNPM_NO_SCRIPT",
+    "err": {
+      "name": "Error",
+      "message": "Missing script: start:dev",
+      "code": "ERR_PNPM_NO_SCRIPT",
+      "stack": "Error: Missing script: start:dev\n    at Object.handler (/home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:121127:15)\n    at async /home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125161:20\n    at async run (/home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125136:34)\n    at async runPnpm (/home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125346:5)\n    at async /home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125338:7"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: String!
+  email: String!
+  name: String!
+  password: String
+  orderIds: [String!]
+  Order: [Order!]
+}
+
+type Vehicle {
+  id: String!
+  brand: String!
+  model: String!
+  year: Int
+  cost: Int
+  Order: [Order!]
+}
+
+type Order {
+  id: String!
+  delivery: String
+  payment: String
+  address: String
+  userId: String
+  vehicleId: String
+  User: User
+  Vehicle: Vehicle
+}
+
+type Query {
+  allUsers: [User!]
+  ordersByUser(data: UserUniqueInput!): [Order!]
+  allVehicles: [Vehicle!]
+  ordersByVehicle(data: VehicleUniqueInput!): [Order!]
+  orderById(id: String!): Order
+  allOrders: [Order!]
+}
+
+input UserUniqueInput {
+  id: String
+}
+
+input VehicleUniqueInput {
+  id: String
+}
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  deleteUser(id: String!): User
+  createVehicle(data: VehicleCreateInput!): Vehicle!
+  deleteVehicle(id: String!): Vehicle
+  createOrder(data: OrderCreateInput!): Order!
+  deleteOrder(id: String!): Order
+}
+
+input UserCreateInput {
+  email: String!
+  name: String!
+  password: String!
+  Order: [OrderCreateInput!]
+}
+
+input OrderCreateInput {
+  userId: String!
+  vehicleId: String!
+  delivery: String
+  payment: String
+  address: String
+}
+
+input VehicleCreateInput {
+  brand: String!
+  model: String!
+  year: Float
+  cost: Float
+  Order: [OrderCreateInput!]
+}

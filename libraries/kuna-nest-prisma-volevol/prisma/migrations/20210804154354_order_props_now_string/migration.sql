@@ -1,7 +1,0 @@
--- AlterTable
-ALTER TABLE "Order" ALTER COLUMN "delivery" SET DEFAULT E'pick up',
-ALTER COLUMN "delivery" SET DATA TYPE TEXT,
-ALTER COLUMN "payment" SET DEFAULT E'cash',
-ALTER COLUMN "payment" SET DATA TYPE TEXT,
-ALTER COLUMN "address" SET DEFAULT E'none',
-ALTER COLUMN "address" SET DATA TYPE TEXT;
