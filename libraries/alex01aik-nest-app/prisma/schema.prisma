@@ -8,17 +8,17 @@ generator client {
 }
 
 model Article {
-  id         String    @id @default(uuid())
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  title      String    @db.VarChar(255)
-  content    String?
-  published  Boolean   @default(false)
-  author     User      @relation(fields: [authorId], references: [id])
-  authorId   String
-  comments   Comment[]
-  categoryId String
-  category   Category  @relation(fields: [categoryId], references: [id])
+  id       String    @id @default(uuid())
+  // createdAt  DateTime  @default(now())
+  // updatedAt  DateTime  @updatedAt
+  title    String    @db.VarChar(255)
+  content  String?
+  // published  Boolean   @default(false)
+  author   User      @relation(fields: [authorId], references: [id])
+  authorId String
+  comments Comment[]
+  // categoryId String
+  // category   Category  @relation(fields: [categoryId], references: [id])
 }
 
 model Comment {
@@ -40,6 +40,7 @@ model User {
 }
 
 model Category {
-  id       String    @id @default(uuid())
-  articles Article[]
+  id   String @id @default(uuid())
+  name String
+  // articles Article[]
 }
