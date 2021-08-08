@@ -3,12 +3,12 @@
     "selected": 1
   },
   "1 error pnpm": {
-    "code": "ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND",
+    "code": "ERR_PNPM_NO_SCRIPT",
     "err": {
       "name": "Error",
-      "message": "No package.json (or package.yaml, or package.json5) was found in \"/home/ivan/Рабочий стол/rush-monorepo\".",
-      "code": "ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND",
-      "stack": "Error: No package.json (or package.yaml, or package.json5) was found in \"/home/ivan/Рабочий стол/rush-monorepo\".\n    at readProjectManifest (/home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:40241:13)\n    at async Object.readProjectManifestOnly (/home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:40245:28)\n    at async Object.readProjectManifestOnly (/home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:40464:24)\n    at async Object.handler (/home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:121101:24)\n    at async /home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125161:20\n    at async run (/home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125136:34)\n    at async runPnpm (/home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125346:5)\n    at async /home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125338:7"
+      "message": "Missing script: start:dev",
+      "code": "ERR_PNPM_NO_SCRIPT",
+      "stack": "Error: Missing script: start:dev\n    at Object.handler (/home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:121127:15)\n    at async /home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125161:20\n    at async run (/home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125136:34)\n    at async runPnpm (/home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125346:5)\n    at async /home/ivan/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/pnpm@6.10.3/node_modules/pnpm/dist/pnpm.cjs:125338:7"
     }
   }
 }
