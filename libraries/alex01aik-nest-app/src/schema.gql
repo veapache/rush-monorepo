@@ -1,0 +1,44 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Article {
+  id: String!
+  title: String!
+  content: String!
+}
+
+type Author {
+  id: String!
+  email: String!
+  password: String!
+  username: String!
+  articles: [Article!]
+  getArticlesByUserId: [Article!]!
+}
+
+type Query {
+  getAuthor(id: String!): Author!
+  getAuthors: [Author!]!
+  getArticle(id: String!): Article!
+}
+
+type Mutation {
+  createOneAuthor(args: AuthorCreateInput!): Author!
+  updateOneAuthor(username: String, email: String, password: String, id: String!): Author!
+  deleteOneAuthor(id: String!): Author!
+  createOneArticle(authorId: String!, data: ArticleCreateInput!): Article!
+  updateOneArticle(title: String, content: String, id: String!): Article!
+  deleteOneArticle(id: String!): Article!
+}
+
+input AuthorCreateInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input ArticleCreateInput {
+  title: String!
+  content: String!
+}
