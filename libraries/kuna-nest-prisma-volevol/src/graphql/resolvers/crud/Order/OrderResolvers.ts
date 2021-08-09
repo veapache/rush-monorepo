@@ -4,77 +4,21 @@ import {
   Query,
   Mutation,
   Args,
-  ResolveField,
-  Root,
   Context,
-  Int,
   InputType,
   Field,
-  registerEnumType,
 } from '@nestjs/graphql'
 import { Inject } from '@nestjs/common'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { User } from '../models/user.model'
-import { Vehicle } from '../models/vehicle.model'
-import { Order } from '../models/order.model'
 
-@InputType()
-export class OrderCreateInput {
-  @Field()
-  userId: string
+import { Order } from 'src/graphql/models/order.model'
 
-  @Field()
-  vehicleId: string
-
-  @Field({ nullable: true })
-  delivery: string
-
-  @Field({ nullable: true })
-  payment: string
-
-  @Field({ nullable: true })
-  address: string
-}
-
-@InputType()
-export class OrderUpdateInput {
-
-  @Field({ nullable: true })
-  delivery: string
-
-  @Field({ nullable: true })
-  payment: string
-
-  @Field({ nullable: true })
-  address: string
-
-}
+import { OrderCreateInput } from '../../inputs/OrderCreateInput'
+import { OrderUpdateInput } from '../../inputs/OrderUpdateInput'
 
 @Resolver(Order)
 export class OrderResolver {
   constructor(@Inject(PrismaService) private prismaService: PrismaService) { }
-
-  // @ResolveField()
-  // getUser(@Root() order: Order): Promise<User | null> {
-  //   return this.prismaService.order
-  //     .findUnique({
-  //       where: {
-  //         id: order.id,
-  //       },
-  //     })
-  //     .User()
-  // }
-
-  // @ResolveField()
-  // getVehicle(@Root() order: Order): Promise<Vehicle | null> {
-  //   return this.prismaService.order
-  //     .findUnique({
-  //       where: {
-  //         id: order.id,
-  //       },
-  //     })
-  //     .Vehicle()
-  // }
 
   @Query((returns) => Order, { nullable: true })
   orderById(@Args('id') id: string): Promise<Order> {
@@ -95,9 +39,9 @@ export class OrderResolver {
 
   @Mutation((returns) => Order)
   updateOrder(
-    @Args('data') data: OrderUpdateInput, 
     @Args('id') id: string, 
-    @Context() ctx
+    @Args('data') data: OrderUpdateInput, 
+    @Context() ctx: any
   ): Promise<Order> {
     return this.prismaService.order.update({
       where: {

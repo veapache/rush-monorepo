@@ -1,67 +1,13 @@
 import 'reflect-metadata'
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Args,
-  Context,
-  ResolveField,
-  Root,
-  InputType,
-  Field,
-} from '@nestjs/graphql'
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
 import { Inject } from '@nestjs/common'
-import { OrderCreateInput } from './resolvers.order'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { Vehicle } from '../models/vehicle.model'
-import { Order } from '../models/order.model'
-import { IsString } from 'class-validator'
 
+import { Vehicle } from 'src/graphql/models/vehicle.model'
+import { Order } from 'src/graphql/models/order.model'
 
-@InputType()
-class VehicleUniqueInput {
-  @Field({ nullable: true })
-  id: string
-}
-
-@InputType()
-class VehicleCreateInput {
-  @Field()
-  brand: string
-
-  @Field()
-  model: string
-
-  @Field({ nullable: true })
-  year: number
-
-  @Field({ nullable: true })
-  cost: number
-
-  @Field((type) => [OrderCreateInput], { nullable: true })
-  Order: [OrderCreateInput]
-}
-
-@InputType()
-class VehicleUpdateInput {
-  
-  @Field({ nullable: true })
-  @IsString()
-  brand: string
-
-  @Field({ nullable: true })
-  @IsString()
-  model: string
-
-  @Field({ nullable: true })
-  @IsString()
-  year: number
-
-  @Field({ nullable: true })
-  @IsString()
-  cost: number
-
-}
+import { VehicleCreateInput } from '../../inputs/VehicleCreateInput'
+import { VehicleUpdateInput } from '../../inputs/VehicleUpdateInput'
 
 @Resolver(Vehicle)
 export class VehicleResolver {
@@ -108,15 +54,11 @@ export class VehicleResolver {
   }
 
   @Query((returns) => [Order], { nullable: true })
-  async ordersByVehicle(@Args('data') data: VehicleUniqueInput): Promise<Order[]> {
+  async ordersByVehicle(@Args('id') id: string): Promise<Order[]> {
     return this.prismaService.vehicle.findUnique({
       where: {
-        id: data.id || undefined,
+        id
       }
-    }).Order({
-      where: {
-        payment: "cash"
-      }
-    })
+    }).Order()
   }
 }

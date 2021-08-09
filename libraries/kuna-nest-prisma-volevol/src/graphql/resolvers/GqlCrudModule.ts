@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { PrismaModule } from 'src/prisma/prisma.module';
-import { OrderResolver } from './providers/resolvers.order';
-import { UserResolver } from './providers/resolvers.user';
-import { VehicleResolver } from './providers/resolvers.vehicle';
+import { OrderResolver } from './crud/Order/OrderResolvers';
+import { UserResolver } from './crud/User/UserResolvers';
+import { VehicleResolver } from './crud/Vehicle/VehicleResolvers';
 
 @Module({
     imports: [PrismaModule],
@@ -17,4 +17,4 @@ import { VehicleResolver } from './providers/resolvers.vehicle';
         OrderResolver
     ]
 })
-export class ResolversModule {}
+export class GqlCrudModule {}
