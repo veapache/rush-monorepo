@@ -66,3 +66,7 @@ common/autoinstallers/*/.npmrc
 
 
 libraries/alex01aik-nest-app/dist
+=======
+node_modules
+# Keep environment variables out of version control
+
