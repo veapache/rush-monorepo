@@ -15,6 +15,8 @@ import { OrderCreateInput } from './resolvers.order'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { Vehicle } from '../models/vehicle.model'
 import { Order } from '../models/order.model'
+import { IsString } from 'class-validator'
+
 
 @InputType()
 class VehicleUniqueInput {
@@ -40,6 +42,27 @@ class VehicleCreateInput {
   Order: [OrderCreateInput]
 }
 
+@InputType()
+class VehicleUpdateInput {
+  
+  @Field({ nullable: true })
+  @IsString()
+  brand: string
+
+  @Field({ nullable: true })
+  @IsString()
+  model: string
+
+  @Field({ nullable: true })
+  @IsString()
+  year: number
+
+  @Field({ nullable: true })
+  @IsString()
+  cost: number
+
+}
+
 @Resolver(Vehicle)
 export class VehicleResolver {
   constructor(@Inject(PrismaService) private prismaService: PrismaService) { }
@@ -53,6 +76,20 @@ export class VehicleResolver {
         year: data.year,
         cost: data.cost
       }
+    })
+  }
+
+  @Mutation((returns) => Vehicle)
+  async updateVehicle( 
+    @Args('data') data: VehicleUpdateInput, 
+    @Args('id') id: string, 
+    @Context() ctx
+  ): Promise<Vehicle> {
+    return this.prismaService.vehicle.update({
+      where: {
+        id
+      },
+      data
     })
   }
 

@@ -50,10 +50,13 @@ input VehicleUniqueInput {
 
 type Mutation {
   createUser(data: UserCreateInput!): User!
+  updateUser(data: UserUpdateInput!, id: String!): User!
   deleteUser(id: String!): User
   createVehicle(data: VehicleCreateInput!): Vehicle!
+  updateVehicle(id: String!, data: VehicleUpdateInput!): Vehicle!
   deleteVehicle(id: String!): Vehicle
   createOrder(data: OrderCreateInput!): Order!
+  updateOrder(id: String!, data: OrderUpdateInput!): Order!
   deleteOrder(id: String!): Order
 }
 
@@ -72,10 +75,29 @@ input OrderCreateInput {
   address: String
 }
 
+input UserUpdateInput {
+  email: String
+  name: String
+  password: String
+}
+
 input VehicleCreateInput {
   brand: String!
   model: String!
   year: Float
   cost: Float
   Order: [OrderCreateInput!]
+}
+
+input VehicleUpdateInput {
+  brand: String
+  model: String
+  year: Float
+  cost: Float
+}
+
+input OrderUpdateInput {
+  delivery: String
+  payment: String
+  address: String
 }

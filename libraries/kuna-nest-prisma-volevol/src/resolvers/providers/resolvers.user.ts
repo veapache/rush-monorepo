@@ -15,7 +15,6 @@ import { PrismaService } from 'src/prisma/prisma.service'
 import { User } from '../models/user.model'
 import { Order } from '../models/order.model'
 import { OrderCreateInput } from './resolvers.order'
-import { ValidationPipe } from 'src/pipes/validation.pipe'
 import { IsEmail, IsString, Length } from 'class-validator'
 
 @InputType()
@@ -46,6 +45,25 @@ class UserCreateInput {
 
 }
 
+@InputType()
+class UserUpdateInput {
+
+  @Field({ nullable: true })
+  @IsEmail()
+  @IsString()
+  email?: string
+
+  @Field({ nullable: true })
+  @IsString()
+  name?: string
+
+  @Field({ nullable: true })
+  @IsString()
+  @Length(4,16)
+  password?: string
+
+}
+
 @Resolver(of => User)
 export class UserResolver {
   constructor(
@@ -53,13 +71,27 @@ export class UserResolver {
   ) { }
 
   @Mutation((returns) => User)
-  async createUser( @Args('data') data: UserCreateInput, @Context() ctx): Promise<User> {
+  async createUser(@Context() ctx, @Args('data') data: UserCreateInput): Promise<User> {
     return this.prismaService.user.create({
       data: {
         email: data.email,
         name: data.name,
         password: data.password
       }
+    })
+  }
+
+  @Mutation((returns) => User)
+  async updateUser(
+    @Context() ctx, 
+    @Args('id') id: string, 
+    @Args('data') data: UserUpdateInput
+  ): Promise<User> {
+    return this.prismaService.user.update({
+      where: {
+        id
+      },
+      data
     })
   }
 

@@ -36,6 +36,20 @@ export class OrderCreateInput {
   address: string
 }
 
+@InputType()
+export class OrderUpdateInput {
+
+  @Field({ nullable: true })
+  delivery: string
+
+  @Field({ nullable: true })
+  payment: string
+
+  @Field({ nullable: true })
+  address: string
+
+}
+
 @Resolver(Order)
 export class OrderResolver {
   constructor(@Inject(PrismaService) private prismaService: PrismaService) { }
@@ -76,6 +90,20 @@ export class OrderResolver {
         userId: data.userId,
         vehicleId: data.vehicleId,
       },
+    })
+  }
+
+  @Mutation((returns) => Order)
+  updateOrder(
+    @Args('data') data: OrderUpdateInput, 
+    @Args('id') id: string, 
+    @Context() ctx
+  ): Promise<Order> {
+    return this.prismaService.order.update({
+      where: {
+        id
+      },
+      data
     })
   }
 
