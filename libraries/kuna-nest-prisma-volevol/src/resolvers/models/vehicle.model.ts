@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { ObjectType, Field, Int } from '@nestjs/graphql'
-import { Order } from './order'
+import { Order } from './order.model'
 
 @ObjectType()
 export class Vehicle {

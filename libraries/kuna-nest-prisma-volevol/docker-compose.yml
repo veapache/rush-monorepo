@@ -26,4 +26,4 @@ networks:
       name: kuna-network
 
 volumes:
-  intern-db-pg-data:
+  intern-db-pg-data: 

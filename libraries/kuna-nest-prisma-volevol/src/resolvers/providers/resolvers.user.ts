@@ -10,11 +10,13 @@ import {
   InputType,
   Field,
 } from '@nestjs/graphql'
-import { Inject } from '@nestjs/common'
+import { Inject, UsePipes } from '@nestjs/common'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { User } from '../models/user'
-import { Order } from '../models/order'
+import { User } from '../models/user.model'
+import { Order } from '../models/order.model'
 import { OrderCreateInput } from './resolvers.order'
+import { ValidationPipe } from 'src/pipes/validation.pipe'
+import { IsEmail, IsString, Length } from 'class-validator'
 
 @InputType()
 class UserUniqueInput {
@@ -24,33 +26,31 @@ class UserUniqueInput {
 
 @InputType()
 class UserCreateInput {
+
   @Field()
+  @IsEmail()
+  @IsString()
   email: string
 
   @Field()
+  @IsString()
   name: string
 
   @Field()
+  @IsString()
+  @Length(4,16)
   password: string
 
   @Field((type) => [OrderCreateInput], { nullable: true })
   Order: [OrderCreateInput]
+
 }
 
-@Resolver(User)
+@Resolver(of => User)
 export class UserResolver {
-  constructor(@Inject(PrismaService) private prismaService: PrismaService) { }
-
-//   @ResolveField()
-//   async orders(@Root() user: User, @Context() ctx): Promise<Order[]> {
-//     return this.prismaService.user
-//       .findUnique({
-//         where: {
-//           id: user.id,
-//         },
-//       })
-//       .Order()
-//   }
+  constructor(
+    @Inject(PrismaService) private prismaService: PrismaService
+  ) { }
 
   @Mutation((returns) => User)
   async createUser( @Args('data') data: UserCreateInput, @Context() ctx): Promise<User> {
@@ -89,4 +89,19 @@ export class UserResolver {
       }
     })
   }
+
+  //   @ResolveField()
+  //   async orders(@Root() user: User, @Context() ctx): Promise<Order[]> {
+  //     return this.prismaService.user
+  //       .findUnique({
+  //         where: {
+  //           id: user.id,
+  //         },
+  //       })
+  //       .Order()
+  //   }
+
+
+  // @UsePipes(ValidationPipe)
+
 }

@@ -7,7 +7,7 @@ export class VehicleDto {
     @IsString({message: 'Должно быть строкой'})
     model: string
     @IsNumber({}, {message: 'Должно быть числом'})
-    year: number
+    year?: number
     @IsNumber({}, {message: 'Должно быть числом'})
-    cost: number
+    cost?: number
 }

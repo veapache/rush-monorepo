@@ -2,50 +2,36 @@ import { Controller, Get, Post, Body, Param, Put, Delete, UsePipes } from '@nest
 import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { OrderDto } from './order.dto';
+import { OrderService } from './order.service';
 
 @Controller('orders')
 export class OrderController {
-    constructor(private readonly prismaService: PrismaService) {}
+    constructor(private readonly orderService: OrderService) {}
 
     @Get()
     async getAll(): Promise<OrderDto[]> {
-        return await this.prismaService.order.findMany()
+        return await this.orderService.findAll()
     }
 
     @Get('/:id')
     async getById(@Param('id') id): Promise<OrderDto> {
-        return this.prismaService.order.findUnique({
-          where: {
-            id
-          }
-        })
+        return await this.orderService.findOne(id)
     }
     
     @UsePipes(ValidationPipe)
     @Post()
-    async createOrder(@Body() {userId, vehicleId}: OrderDto): Promise<OrderDto> {
-        return await this.prismaService.order.create({
-            data: {userId, vehicleId}
-        })
+    async createOrder(@Body() data: OrderDto): Promise<OrderDto> {
+        return await this.orderService.createOrder(data)
     }
 
     @Put('/:id')
     async updateOrder(@Param('id') id: string, @Body() data: OrderDto): Promise<OrderDto>  {
-        return this.prismaService.order.update({
-          where: {
-            id
-          },
-          data
-        })
+        return await this.orderService.updateOrder(id, data)
     }
 
     @Delete('/:id')
     async deleteOrder(@Param('id') id: string): Promise<OrderDto>  {
-        return this.prismaService.order.delete({
-            where: {
-                id
-            }
-        })
+        return await this.orderService.deleteOrder(id)
     }
 
 }

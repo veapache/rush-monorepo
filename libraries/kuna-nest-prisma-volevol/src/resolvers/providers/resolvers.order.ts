@@ -14,9 +14,9 @@ import {
 } from '@nestjs/graphql'
 import { Inject } from '@nestjs/common'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { User } from '../models/user'
-import { Vehicle } from '../models/vehicle'
-import { Order } from '../models/order'
+import { User } from '../models/user.model'
+import { Vehicle } from '../models/vehicle.model'
+import { Order } from '../models/order.model'
 
 @InputType()
 export class OrderCreateInput {
