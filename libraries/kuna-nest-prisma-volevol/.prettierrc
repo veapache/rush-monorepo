@@ -1,4 +1,29 @@
 {
+  "printWidth": 120,
+  "semi": true,
+  "tabWidth": 4,
   "singleQuote": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "overrides": [
+      {
+          "files": ["*.yml", "*.yaml"],
+          "options": {
+              "tabWidth": 2,
+              "singleQuote": false
+          }
+      },
+      {
+          "files": ["*.json"],
+          "options": {
+              "tabWidth": 2
+          }
+      },
+      {
+          "files": ["*.sh"],
+          "options": {
+              "tabWidth": 2,
+              "singleQuote": false
+          }
+      }
+  ]
 }

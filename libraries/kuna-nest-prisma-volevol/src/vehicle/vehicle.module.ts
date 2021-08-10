@@ -5,8 +5,8 @@ import { VehicleService } from './vehicle.service';
 
 @Global()
 @Module({
-  imports: [PrismaModule],
-  controllers: [VehicleController],
-  providers: [VehicleService]
+    imports: [PrismaModule],
+    controllers: [VehicleController],
+    providers: [VehicleService],
 })
 export class VehicleModule {}

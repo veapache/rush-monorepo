@@ -8,27 +8,26 @@ export class OrderController {
 
     @Get()
     async getAll(): Promise<OrderDto[]> {
-        return await this.orderService.findAll()
+        return await this.orderService.findAll();
     }
 
     @Get('/:id')
     async getById(@Param('id') id): Promise<OrderDto> {
-        return await this.orderService.findOne(id)
+        return await this.orderService.findOne(id);
     }
-    
+
     @Post()
     async createOrder(@Body() data: OrderDto): Promise<OrderDto> {
-        return await this.orderService.createOrder(data)
+        return await this.orderService.createOrder(data);
     }
 
     @Put('/:id')
-    async updateOrder(@Param('id') id: string, @Body() data: OrderDto): Promise<OrderDto>  {
-        return await this.orderService.updateOrder(id, data)
+    async updateOrder(@Param('id') id: string, @Body() data: OrderDto): Promise<OrderDto> {
+        return await this.orderService.updateOrder(id, data);
     }
 
     @Delete('/:id')
-    async deleteOrder(@Param('id') id: string): Promise<OrderDto>  {
-        return await this.orderService.deleteOrder(id)
+    async deleteOrder(@Param('id') id: string): Promise<OrderDto> {
+        return await this.orderService.deleteOrder(id);
     }
-
 }

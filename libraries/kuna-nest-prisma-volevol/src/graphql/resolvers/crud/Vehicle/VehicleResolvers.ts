@@ -1,60 +1,46 @@
-import 'reflect-metadata'
-import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
-import { Inject } from '@nestjs/common'
-import { PrismaService } from 'src/prisma/prisma.service'
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
+import { Inject } from '@nestjs/common';
+import { DIPrisma } from 'src/DIP';
+import { PrismaClient } from '@prisma/client';
 
-import { Vehicle } from 'src/graphql/models/vehicle.model'
-import { Order } from 'src/graphql/models/order.model'
+import { Vehicle } from 'src/graphql/models/vehicle.model';
+import { Order } from 'src/graphql/models/order.model';
 
-import { VehicleCreateInput } from '../../inputs/VehicleCreateInput'
-import { VehicleUpdateInput } from '../../inputs/VehicleUpdateInput'
+import { CreateOneVehicleArgs } from './args/CreateOneVehicleArgs';
+import { UpdateOneVehicleArgs } from './args/UpdateOneVehicleArgs';
+import { FindUniqueVehicleArgs } from './args/FindUniqueVehicleArgs';
 
 @Resolver(Vehicle)
 export class VehicleResolver {
-  constructor(@Inject(PrismaService) private prismaService: PrismaService) { }
+    constructor(@Inject(DIPrisma) private prisma: PrismaClient) {}
 
-  @Mutation((returns) => Vehicle)
-  async createVehicle(@Context() ctx: any, @Args('data') data: VehicleCreateInput): Promise<Vehicle> {
-    return this.prismaService.vehicle.create({
-      data: {
-        brand: data.brand,
-        model: data.model,
-        year: data.year,
-        cost: data.cost
-      }
-    })
-  }
+    @Query(() => [Vehicle], { nullable: true })
+    async allVehicles(): Promise<Vehicle[]> {
+        return this.prisma.vehicle.findMany();
+    }
 
-  @Mutation((returns) => Vehicle)
-  async updateVehicle(@Context() ctx: any, @Args('data') data: VehicleUpdateInput, @Args('id') id: string): Promise<Vehicle> {
-    return this.prismaService.vehicle.update({
-      where: {
-        id
-      },
-      data
-    })
-  }
+    @Query(() => Vehicle, { nullable: true })
+    async getVehicleById(@Args() args: FindUniqueVehicleArgs): Promise<Vehicle> {
+        return this.prisma.vehicle.findUnique({ where: args });
+    }
 
-  @Mutation((returns) => Vehicle, { nullable: true })
-  async deleteVehicle(@Context() ctx: any, @Args('id') id: string): Promise<Vehicle | null> {
-    return this.prismaService.vehicle.delete({
-      where: {
-        id: id,
-      },
-    })
-  }
+    @Query(() => [Order], { nullable: true })
+    async ordersByVehicle(@Args('id') id: string): Promise<Order[]> {
+        return this.prisma.vehicle.findUnique({ where: { id } }).Order();
+    }
 
-  @Query((returns) => [Vehicle], { nullable: true })
-  async allVehicles(@Context() ctx: any): Promise<Vehicle[]> {
-    return this.prismaService.vehicle.findMany()
-  }
+    @Mutation(() => Vehicle)
+    async createVehicle(@Args() args: CreateOneVehicleArgs): Promise<Vehicle> {
+        return this.prisma.vehicle.create({ data: args });
+    }
 
-  @Query((returns) => [Order], { nullable: true })
-  async ordersByVehicle(@Context() ctx: any, @Args('id') id: string): Promise<Order[]> {
-    return this.prismaService.vehicle.findUnique({
-      where: {
-        id
-      }
-    }).Order()
-  }
+    @Mutation(() => Vehicle)
+    async updateVehicle(@Args('id') id: string, @Args() args: UpdateOneVehicleArgs): Promise<Vehicle> {
+        return this.prisma.vehicle.update({ where: { id }, data: args });
+    }
+
+    @Mutation(() => Vehicle)
+    async deleteVehicle(@Args('id') id: string): Promise<Vehicle | null> {
+        return this.prisma.vehicle.delete({ where: { id } });
+    }
 }

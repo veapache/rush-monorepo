@@ -1,20 +1,19 @@
-import { ArgsType, Field, } from '@nestjs/graphql'
-import { IsEmail, IsString, Length } from 'class-validator'
+import { ArgsType, Field } from '@nestjs/graphql';
+import { IsEmail, IsString, Length } from 'class-validator';
 
 @ArgsType()
 export class CreateOneUserArgs {
-    @Field()
+    @Field((type) => String)
     @IsEmail()
     @IsString()
-    email: string
+    email: string;
 
-    @Field()
+    @Field((type) => String)
     @IsString()
-    name: string
+    name: string;
 
-    @Field()
+    @Field((type) => String)
     @IsString()
-    @Length(4,16)
-    password: string
+    @Length(4, 16)
+    password: string;
 }
-

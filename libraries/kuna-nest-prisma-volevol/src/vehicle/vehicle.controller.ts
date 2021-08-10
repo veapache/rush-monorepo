@@ -9,32 +9,31 @@ export class VehicleController {
 
     @Get()
     async getAll(): Promise<VehicleDto[]> {
-        return this.vehicleService.findAll()
+        return this.vehicleService.findAll();
     }
 
     @Get('/:id')
     async getById(@Param('id') id): Promise<VehicleDto> {
-        return this.vehicleService.findOne(id)
+        return this.vehicleService.findOne(id);
     }
- 
+
     @Get('/:id/orders')
     async getOrdersById(@Param('id') id: string): Promise<OrderDto[]> {
-        return this.vehicleService.findOrdersById(id)
+        return this.vehicleService.findOrdersById(id);
     }
 
     @Post()
     async createVehicle(@Body() data: VehicleDto): Promise<VehicleDto> {
-        return this.vehicleService.createVehicle(data)
+        return this.vehicleService.createVehicle(data);
     }
 
     @Put('/:id')
-    async updateVehicle(@Param('id') id: string, @Body() data: VehicleDto): Promise<VehicleDto>  {
-        return this.vehicleService.updateVehicle(id, data)
+    async updateVehicle(@Param('id') id: string, @Body() data: VehicleDto): Promise<VehicleDto> {
+        return this.vehicleService.updateVehicle(id, data);
     }
 
     @Delete('/:id')
-    async deleteVehicle(@Param('id') id: string): Promise<VehicleDto>  {
-        return this.vehicleService.deleteVehicle(id)
+    async deleteVehicle(@Param('id') id: string): Promise<VehicleDto> {
+        return this.vehicleService.deleteVehicle(id);
     }
-
 }

@@ -36,61 +36,20 @@ type Query {
   getUserById(id: String!): User
   ordersByUser(id: String!): [Order!]
   allVehicles: [Vehicle!]
+  getVehicleById(id: String!): Vehicle
   ordersByVehicle(id: String!): [Order!]
-  orderById(id: String!): Order
   allOrders: [Order!]
+  orderById(id: String!): Order
 }
 
 type Mutation {
-  createUser(data: UserCreateInput!): User!
-  updateUser(data: UserUpdateInput!, id: String!): User!
+  createUser(email: String!, name: String!, password: String!): User
+  updateUser(email: String, name: String, password: String, id: String!): User
   deleteUser(id: String!): User
-  createVehicle(data: VehicleCreateInput!): Vehicle!
-  updateVehicle(id: String!, data: VehicleUpdateInput!): Vehicle!
-  deleteVehicle(id: String!): Vehicle
-  createOrder(data: OrderCreateInput!): Order!
-  updateOrder(data: OrderUpdateInput!, id: String!): Order!
-  deleteOrder(id: String!): Order
-}
-
-input UserCreateInput {
-  email: String!
-  name: String!
-  password: String!
-  Order: [OrderCreateInput!]
-}
-
-input OrderCreateInput {
-  userId: String!
-  vehicleId: String!
-  delivery: String
-  payment: String
-  address: String
-}
-
-input UserUpdateInput {
-  email: String
-  name: String
-  password: String
-}
-
-input VehicleCreateInput {
-  brand: String
-  model: String
-  year: Float
-  cost: Float
-  Order: [OrderCreateInput!]
-}
-
-input VehicleUpdateInput {
-  brand: String
-  model: String
-  year: Float
-  cost: Float
-}
-
-input OrderUpdateInput {
-  delivery: String
-  payment: String
-  address: String
+  createVehicle(brand: String!, model: String!, year: Float, cost: Float): Vehicle!
+  updateVehicle(brand: String, model: String, year: Float, cost: Float, id: String!): Vehicle!
+  deleteVehicle(id: String!): Vehicle!
+  createOrder(delivery: String, payment: String, address: String, userId: String, vehicleId: String): Order!
+  updateOrder(delivery: String, payment: String, address: String, id: String!): Order!
+  deleteOrder(id: String!): Order!
 }

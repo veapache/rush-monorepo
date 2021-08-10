@@ -5,64 +5,63 @@ import { UserDto } from './users.dto';
 import { OrderDto } from 'src/order/order.dto';
 
 class UserCreateInput {
-    name: string
-    email: string
-    password: string
+    name: string;
+    email: string;
+    password: string;
 }
 
 class UserUpdateInput {
-    name?: string
-    email?: string
-    password?: string
+    name?: string;
+    email?: string;
+    password?: string;
 }
 
 @Injectable()
 export class UsersService {
-
     constructor(@Inject(DIPrisma) private readonly prisma: PrismaClient) {}
 
     async findAll(): Promise<UserDto[]> {
-        return await this.prisma.user.findMany()
+        return await this.prisma.user.findMany();
     }
 
     async findOne(id: string): Promise<UserDto> {
         return this.prisma.user.findUnique({
             where: {
-                id
-              }
-          })
+                id,
+            },
+        });
     }
 
     async findOrdersById(id: string): Promise<OrderDto[]> {
-        return this.prisma.user.findUnique({
-            where: { 
-                id 
-            }
-        }).Order()
+        return this.prisma.user
+            .findUnique({
+                where: {
+                    id,
+                },
+            })
+            .Order();
     }
 
     async createUser(data: UserCreateInput): Promise<UserDto> {
         return await this.prisma.user.create({
-            data
-        })
+            data,
+        });
     }
 
     async updateUser(id: string, data: UserUpdateInput): Promise<UserDto> {
         return this.prisma.user.update({
             where: {
-                id
+                id,
             },
-            data
-          })
+            data,
+        });
     }
 
     async deleteUser(id: string): Promise<UserDto> {
         return this.prisma.user.delete({
             where: {
-                id
-            }
-        })
+                id,
+            },
+        });
     }
-    
 }
- 

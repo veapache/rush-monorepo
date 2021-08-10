@@ -11,21 +11,20 @@ import { OrderModule } from './order/order.module';
 import { GqlCrudModule } from './graphql/resolvers/GqlCrudModule';
 import { GraphQLModule } from '@nestjs/graphql';
 
-import { join } from 'path'
+import { join } from 'path';
 
 @Module({
-  imports: [
-    PrismaModule, 
-    UsersModule, 
-    VehicleModule, 
-    OrderModule,
-    GqlCrudModule,
-    GraphQLModule.forRoot({
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      // buildSchemaOptions: { dateScalarMode: 'timestamp' },
-    })
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [
+        PrismaModule,
+        UsersModule,
+        VehicleModule,
+        OrderModule,
+        GqlCrudModule,
+        GraphQLModule.forRoot({
+            autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+        }),
+    ],
+    controllers: [AppController],
+    providers: [AppService],
 })
 export class AppModule {}

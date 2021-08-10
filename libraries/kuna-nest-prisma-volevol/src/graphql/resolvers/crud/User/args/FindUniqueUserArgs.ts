@@ -1,10 +1,10 @@
-import { ArgsType, Field, } from '@nestjs/graphql'
-import { IsString } from 'class-validator'
+import { ArgsType, Field } from '@nestjs/graphql';
+import { IsNotEmpty, IsUUID } from 'class-validator';
 
 @ArgsType()
 export class FindUniqueUserArgs {
     @Field()
-    @IsString()
-    id: string
+    @IsNotEmpty()
+    @IsUUID()
+    id: string;
 }
-

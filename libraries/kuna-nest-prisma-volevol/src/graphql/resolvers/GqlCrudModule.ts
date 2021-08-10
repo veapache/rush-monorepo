@@ -6,15 +6,7 @@ import { VehicleResolver } from './crud/Vehicle/VehicleResolvers';
 
 @Module({
     imports: [PrismaModule],
-    providers: [
-        UserResolver,
-        VehicleResolver,
-        OrderResolver
-    ],
-    exports: [
-        UserResolver,
-        VehicleResolver,
-        OrderResolver
-    ]
+    providers: [UserResolver, VehicleResolver, OrderResolver],
+    exports: [UserResolver, VehicleResolver, OrderResolver],
 })
 export class GqlCrudModule {}

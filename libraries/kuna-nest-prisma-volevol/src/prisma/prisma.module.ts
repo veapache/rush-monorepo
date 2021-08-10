@@ -4,15 +4,15 @@ import prisma from './client';
 import { PrismaService } from './prisma.service';
 
 const prismaProvider = {
-  provide: DIPrisma,
-  useValue: prisma,
+    provide: DIPrisma,
+    useValue: prisma,
 };
 
 @Global()
 @Module({
-  imports: [],
-  controllers: [],
-  providers: [prismaProvider, PrismaService],
-  exports: [prismaProvider, PrismaService],
+    imports: [],
+    controllers: [],
+    providers: [prismaProvider, PrismaService],
+    exports: [prismaProvider, PrismaService],
 })
 export class PrismaModule {}

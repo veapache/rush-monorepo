@@ -1,95 +1,59 @@
-import 'reflect-metadata'
-import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
-import { Inject } from '@nestjs/common'
-import { PrismaService } from 'src/prisma/prisma.service'
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Inject, Body } from '@nestjs/common';
+import { DIPrisma } from 'src/DIP';
+import { PrismaClient } from '@prisma/client';
 
-import { User } from 'src/graphql/models/user.model'
-import { Order } from 'src/graphql/models/order.model'
+import { User } from 'src/graphql/models/user.model';
+import { Order } from 'src/graphql/models/order.model';
 
-import { UserCreateInput } from '../../inputs/UserCreateInput'
-import { UserUpdateInput } from '../../inputs/UserUpdateInput'
-import { CreateOneUserArgs } from './args/CreateOneUserArgs'
-import { FindUniqueUserArgs } from './args/FindUniqueUserArgs'
+import { CreateOneUserArgs } from './args/CreateOneUserArgs';
+import { FindUniqueUserArgs } from './args/FindUniqueUserArgs';
+import { UpdateOneUserArgs } from './args/UpdateOneUserArgs';
 
-@Resolver(of => User)
+@Resolver((of) => User)
 export class UserResolver {
-  constructor(@Inject(PrismaService) private prisma: PrismaService) {}
+    constructor(@Inject(DIPrisma) private prisma: PrismaClient) {}
 
-  @Query(() => [User], { nullable: true })
-  async getAllUsers(@Context() ctx: any): Promise<User[]> {
-    return this.prisma.user.findMany()
-  }
+    @Query(() => [User], { nullable: true })
+    async getAllUsers(): Promise<User[]> {
+        return this.prisma.user.findMany();
+    }
 
-  // не работает через ctx => "Cannot read property 'user' of undefined"
-  @Query(() => User, { nullable: true })
-  async getUserById(@Context() ctx: any, @Args() args: FindUniqueUserArgs): Promise<User[]> {
-    // console.log('--------------------') // эксперименты (удалить позже)
-    // console.log(args)
-    // // console.log('')
-    // // console.log(ctx)
-    // console.log('')
-    // ctx.prisma = this.prisma
-    // console.log(ctx.prisma)
-    // console.log('--------------------') // эксперименты (удалить позже)
-    return ctx.prisma.user.findUnique(args)
-  }
+    @Query(() => User, { nullable: true })
+    async getUserById(@Args() args: FindUniqueUserArgs): Promise<User> {
+        return this.prisma.user.findUnique({ where: args });
+    }
 
-  @Query(() => [Order], { nullable: true })
-  async ordersByUser(@Context() ctx: any, @Args('id') id: string): Promise<Order[]> {
-    return this.prisma.user.findUnique({
-      where: {
-        id
-      }
-    }).Order()
-  }
+    @Query(() => [Order], { nullable: true })
+    async ordersByUser(@Args() args: FindUniqueUserArgs): Promise<Order[]> {
+        return this.prisma.user.findUnique({ where: args }).Order();
+    }
 
-  // @Mutation(() => User, { nullable: false })
-  // async createUser(@Context() ctx: any, @Args() args: CreateOneUserArgs): Promise<User> {
-  //   return ctx.prisma.user.create(args)
-  // }
+    @Mutation(() => User, { nullable: true })
+    async createUser(@Args() args: CreateOneUserArgs): Promise<User> {
+        return this.prisma.user.create({ data: args });
+    }
 
-  @Mutation((returns) => User)
-  async createUser(@Context() ctx: any, @Args('data') data: UserCreateInput): Promise<User> {
-    return this.prisma.user.create({
-      data: {
-        email: data.email,
-        name: data.name,
-        password: data.password
-      }
-    })
-  }
+    @Mutation(() => User, { nullable: true })
+    async updateUser(@Args('id') id: string, @Args() args: UpdateOneUserArgs): Promise<User> {
+        return this.prisma.user.update({ where: { id }, data: args });
+    }
 
-  @Mutation((returns) => User)
-  async updateUser(@Context() ctx: any, @Args('id') id: string, @Args('data') data: UserUpdateInput): Promise<User> {
-    return this.prisma.user.update({
-      where: {
-        id
-      },
-      data
-    })
-  }
+    @Mutation(() => User, { nullable: true })
+    async deleteUser(@Args('id') id: string): Promise<User | null> {
+        return this.prisma.user.delete({ where: { id } });
+    }
 
-  @Mutation((returns) => User, { nullable: true })
-  async deleteUser(@Context() ctx: any, @Args('id') id: string): Promise<User | null> {
-    return this.prisma.user.delete({
-      where: {
-        id: id,
-      },
-    })
-  }
+    //   @ResolveField()
+    //   async orders(@Root() user: User, @Context() ctx): Promise<Order[]> {
+    //     return this.prisma.user
+    //       .findUnique({
+    //         where: {
+    //           id: user.id,
+    //         },
+    //       })
+    //       .Order()
+    //   }
 
-  //   @ResolveField()
-  //   async orders(@Root() user: User, @Context() ctx): Promise<Order[]> {
-  //     return this.prisma.user
-  //       .findUnique({
-  //         where: {
-  //           id: user.id,
-  //         },
-  //       })
-  //       .Order()
-  //   }
-
-
-  // @UsePipes(ValidationPipe)
-
+    // @UsePipes(ValidationPipe)
 }

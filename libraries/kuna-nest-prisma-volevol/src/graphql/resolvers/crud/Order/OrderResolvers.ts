@@ -1,55 +1,40 @@
-import 'reflect-metadata'
-import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
-import { Inject } from '@nestjs/common'
-import { PrismaService } from 'src/prisma/prisma.service'
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
+import { Inject } from '@nestjs/common';
+import { DIPrisma } from 'src/DIP';
+import { PrismaClient } from '@prisma/client';
 
-import { Order } from 'src/graphql/models/order.model'
+import { Order } from 'src/graphql/models/order.model';
 
-import { OrderCreateInput } from '../../inputs/OrderCreateInput'
-import { OrderUpdateInput } from '../../inputs/OrderUpdateInput'
+import { CreateOneOrderArgs } from './args/CreateOneOrderArgs';
+import { FindUniqueOrderArgs } from './args/FindUniqueOrderArgs';
+import { UpdateOneOrderArgs } from './args/UpdateOneOrderArgs';
 
 @Resolver(Order)
 export class OrderResolver {
-  constructor(@Inject(PrismaService) private prismaService: PrismaService) { }
+    constructor(@Inject(DIPrisma) private prisma: PrismaClient) {}
 
-  @Query((returns) => Order, { nullable: true })
-  orderById(@Args('id') id: string): Promise<Order> {
-    return this.prismaService.order.findUnique({
-      where: { id },
-    })
-  }
+    @Query(() => [Order], { nullable: true })
+    async allOrders(): Promise<Order[]> {
+        return this.prisma.order.findMany();
+    }
 
-  @Mutation((returns) => Order)
-  createOrder(@Context() ctx: any, @Args('data') data: OrderCreateInput): Promise<Order> {
-    return this.prismaService.order.create({
-      data: {
-        userId: data.userId,
-        vehicleId: data.vehicleId,
-      },
-    })
-  }
+    @Query(() => Order, { nullable: true })
+    async orderById(@Args() args: FindUniqueOrderArgs): Promise<Order> {
+        return this.prisma.order.findUnique({ where: args });
+    }
 
-  @Mutation((returns) => Order)
-  updateOrder(@Context() ctx: any, @Args('id') id: string, @Args('data') data: OrderUpdateInput): Promise<Order> {
-    return this.prismaService.order.update({
-      where: {
-        id
-      },
-      data
-    })
-  }
+    @Mutation(() => Order)
+    async createOrder(@Args() args: CreateOneOrderArgs): Promise<Order> {
+        return this.prisma.order.create({ data: args });
+    }
 
-  @Mutation((returns) => Order, { nullable: true })
-  async deleteOrder(@Context() ctx: any, @Args('id') id: string): Promise<Order | null> {
-    return this.prismaService.order.delete({
-      where: {
-        id: id,
-      },
-    })
-  }
+    @Mutation(() => Order)
+    async updateOrder(@Args('id') id: string, @Args() args: UpdateOneOrderArgs): Promise<Order> {
+        return this.prisma.order.update({ where: { id }, data: args });
+    }
 
-  @Query((returns) => [Order], { nullable: true })
-  async allOrders(@Context() ctx: any): Promise<Order[]> {
-    return this.prismaService.order.findMany()
-  }
+    @Mutation(() => Order)
+    async deleteOrder(@Args('id') id: string): Promise<Order | null> {
+        return this.prisma.order.delete({ where: { id } });
+    }
 }

@@ -2,16 +2,16 @@ import { ArgsType, Field } from '@nestjs/graphql';
 import { IsNumber, IsString, IsNotEmpty, Min } from 'class-validator';
 
 @ArgsType()
-export class CreateOneVehicleArgs {
-    @Field((type) => String)
+export class UpdateOneVehicleArgs {
+    @Field((type) => String, { nullable: true })
     @IsString()
     @IsNotEmpty()
-    brand: string;
+    brand?: string;
 
-    @Field((type) => String)
+    @Field((type) => String, { nullable: true })
     @IsString()
     @IsNotEmpty()
-    model: string;
+    model?: string;
 
     @Field((type) => Number, { nullable: true })
     @IsNumber()
