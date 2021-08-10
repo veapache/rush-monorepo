@@ -1,5 +1,4 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, UsePipes} from '@nestjs/common';
-import { ValidationPipe } from 'src/pipes/validation.pipe';
+import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './users.dto';
 import { OrderDto } from 'src/order/order.dto';
@@ -25,13 +24,11 @@ export class UsersController {
         return this.usersService.findOrdersById(id)
     }
 
-    @UsePipes(ValidationPipe)
     @Post()
     async createUser(@Body() data: UserDto): Promise<UserDto> {
         return this.usersService.createUser(data)
     }
 
-    // @UsePipes(ValidationPipe)
     @Put('/:id')
     async updateUser(@Param('id') id: string, @Body() data: UserDto): Promise<UserDto>  {
         return this.usersService.updateUser(id, data)
@@ -41,14 +38,4 @@ export class UsersController {
     async deleteUser(@Param('id') id: string): Promise<UserDto>  {
         return this.usersService.deleteUser(id)
     }
-
-    // валидация на UUID (не работает)
-
-    // @UsePipes(ValidationPipe)
-    // @Get('/:id')
-    // async getByUserId(@Param('id', new ParseUUIDPipe({version: '5'})) id): Promise<UserDto> {
-    //     return this.prismaService.user.findUnique({
-    //       where: id
-    //     })
-    // }
 }

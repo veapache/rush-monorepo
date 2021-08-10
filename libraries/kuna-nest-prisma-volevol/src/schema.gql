@@ -33,7 +33,7 @@ type Order {
 
 type Query {
   getAllUsers: [User!]
-  getUserById(id: String!): [User!]
+  getUserById(id: String!): User
   ordersByUser(id: String!): [Order!]
   allVehicles: [Vehicle!]
   ordersByVehicle(id: String!): [Order!]
@@ -75,8 +75,8 @@ input UserUpdateInput {
 }
 
 input VehicleCreateInput {
-  brand: String!
-  model: String!
+  brand: String
+  model: String
   year: Float
   cost: Float
   Order: [OrderCreateInput!]

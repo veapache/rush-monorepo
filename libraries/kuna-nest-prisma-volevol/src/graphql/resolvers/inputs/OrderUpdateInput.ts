@@ -1,19 +1,16 @@
 import { InputType, Field, } from '@nestjs/graphql'
-import { IsString } from 'class-validator'
+import { IsString, IsNotEmpty } from 'class-validator'
 
 @InputType()
 export class OrderUpdateInput {
 
-  @Field({ nullable: true })
-  @IsString()
+  @Field((type => String), { nullable: true })
   delivery: string
 
-  @Field({ nullable: true })
-  @IsString()
+  @Field((type => String), { nullable: true })
   payment: string
 
-  @Field({ nullable: true })
-  @IsString()
+  @Field((type => String), { nullable: true })
   address: string
 
 }

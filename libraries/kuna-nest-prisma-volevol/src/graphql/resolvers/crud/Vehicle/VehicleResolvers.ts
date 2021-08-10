@@ -14,7 +14,7 @@ export class VehicleResolver {
   constructor(@Inject(PrismaService) private prismaService: PrismaService) { }
 
   @Mutation((returns) => Vehicle)
-  async createVehicle( @Args('data') data: VehicleCreateInput, @Context() ctx): Promise<Vehicle> {
+  async createVehicle(@Context() ctx: any, @Args('data') data: VehicleCreateInput): Promise<Vehicle> {
     return this.prismaService.vehicle.create({
       data: {
         brand: data.brand,
@@ -26,11 +26,7 @@ export class VehicleResolver {
   }
 
   @Mutation((returns) => Vehicle)
-  async updateVehicle( 
-    @Args('data') data: VehicleUpdateInput, 
-    @Args('id') id: string, 
-    @Context() ctx
-  ): Promise<Vehicle> {
+  async updateVehicle(@Context() ctx: any, @Args('data') data: VehicleUpdateInput, @Args('id') id: string): Promise<Vehicle> {
     return this.prismaService.vehicle.update({
       where: {
         id
@@ -40,7 +36,7 @@ export class VehicleResolver {
   }
 
   @Mutation((returns) => Vehicle, { nullable: true })
-  async deleteVehicle( @Args('id') id: string, @Context() ctx): Promise<Vehicle | null> {
+  async deleteVehicle(@Context() ctx: any, @Args('id') id: string): Promise<Vehicle | null> {
     return this.prismaService.vehicle.delete({
       where: {
         id: id,
@@ -49,12 +45,12 @@ export class VehicleResolver {
   }
 
   @Query((returns) => [Vehicle], { nullable: true })
-  async allVehicles(@Context() ctx): Promise<Vehicle[]> {
+  async allVehicles(@Context() ctx: any): Promise<Vehicle[]> {
     return this.prismaService.vehicle.findMany()
   }
 
   @Query((returns) => [Order], { nullable: true })
-  async ordersByVehicle(@Args('id') id: string): Promise<Order[]> {
+  async ordersByVehicle(@Context() ctx: any, @Args('id') id: string): Promise<Order[]> {
     return this.prismaService.vehicle.findUnique({
       where: {
         id

@@ -1,23 +1,23 @@
 import { InputType, Field, } from '@nestjs/graphql'
-import { IsString } from 'class-validator'
+import { IsNotEmpty, Min } from 'class-validator'
 
 @InputType()
 export class VehicleUpdateInput {
   
-  @Field({ nullable: true })
-  @IsString()
+  @Field((type => String), { nullable: true })
+  @IsNotEmpty({message: 'Автомобиль должен пренадлежать к какому-либо бренду'})
   brand: string
 
-  @Field({ nullable: true })
-  @IsString()
+  @Field((type => String), { nullable: true })
+  @IsNotEmpty({message: 'У автомобиля должна быть модель'})
   model: string
 
-  @Field({ nullable: true })
-  @IsString()
+  @Field((type => Number), { nullable: true })
+  @Min(1885 , {message: "Автомобиль должен иметь валидный год выпуска"})
   year: number
 
-  @Field({ nullable: true })
-  @IsString()
+  @Field((type => Number), { nullable: true })
+  @Min(0 , {message: "Автомобиль должен иметь валидную цену"})
   cost: number
 
 }

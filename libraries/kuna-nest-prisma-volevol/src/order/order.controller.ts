@@ -1,6 +1,4 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, UsePipes } from '@nestjs/common';
-import { ValidationPipe } from 'src/pipes/validation.pipe';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
 import { OrderDto } from './order.dto';
 import { OrderService } from './order.service';
 
@@ -18,7 +16,6 @@ export class OrderController {
         return await this.orderService.findOne(id)
     }
     
-    @UsePipes(ValidationPipe)
     @Post()
     async createOrder(@Body() data: OrderDto): Promise<OrderDto> {
         return await this.orderService.createOrder(data)

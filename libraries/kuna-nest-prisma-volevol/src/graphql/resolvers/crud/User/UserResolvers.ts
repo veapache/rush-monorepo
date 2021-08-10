@@ -13,29 +13,34 @@ import { FindUniqueUserArgs } from './args/FindUniqueUserArgs'
 
 @Resolver(of => User)
 export class UserResolver {
-  constructor(@Inject(PrismaService) private prisma: PrismaService) { }
+  constructor(@Inject(PrismaService) private prisma: PrismaService) {}
 
   @Query(() => [User], { nullable: true })
   async getAllUsers(@Context() ctx: any): Promise<User[]> {
     return this.prisma.user.findMany()
   }
 
-  @Query(() => [User], { nullable: true })
+  // не работает через ctx => "Cannot read property 'user' of undefined"
+  @Query(() => User, { nullable: true })
   async getUserById(@Context() ctx: any, @Args() args: FindUniqueUserArgs): Promise<User[]> {
-    return ctx.prisma.user.findUnique({args})
+    // console.log('--------------------') // эксперименты (удалить позже)
+    // console.log(args)
+    // // console.log('')
+    // // console.log(ctx)
+    // console.log('')
+    // ctx.prisma = this.prisma
+    // console.log(ctx.prisma)
+    // console.log('--------------------') // эксперименты (удалить позже)
+    return ctx.prisma.user.findUnique(args)
   }
 
   @Query(() => [Order], { nullable: true })
-  async ordersByUser(@Args('id') id: string): Promise<Order[]> {
+  async ordersByUser(@Context() ctx: any, @Args('id') id: string): Promise<Order[]> {
     return this.prisma.user.findUnique({
       where: {
         id
       }
-    }).Order({
-      where: {
-        payment: "cash"
-      }
-    })
+    }).Order()
   }
 
   // @Mutation(() => User, { nullable: false })
@@ -44,7 +49,7 @@ export class UserResolver {
   // }
 
   @Mutation((returns) => User)
-  async createUser(@Context() ctx, @Args('data') data: UserCreateInput): Promise<User> {
+  async createUser(@Context() ctx: any, @Args('data') data: UserCreateInput): Promise<User> {
     return this.prisma.user.create({
       data: {
         email: data.email,
@@ -55,11 +60,7 @@ export class UserResolver {
   }
 
   @Mutation((returns) => User)
-  async updateUser(
-    @Context() ctx, 
-    @Args('id') id: string, 
-    @Args('data') data: UserUpdateInput
-  ): Promise<User> {
+  async updateUser(@Context() ctx: any, @Args('id') id: string, @Args('data') data: UserUpdateInput): Promise<User> {
     return this.prisma.user.update({
       where: {
         id
@@ -69,7 +70,7 @@ export class UserResolver {
   }
 
   @Mutation((returns) => User, { nullable: true })
-  async deleteUser( @Args('id') id: string, @Context() ctx): Promise<User | null> {
+  async deleteUser(@Context() ctx: any, @Args('id') id: string): Promise<User | null> {
     return this.prisma.user.delete({
       where: {
         id: id,

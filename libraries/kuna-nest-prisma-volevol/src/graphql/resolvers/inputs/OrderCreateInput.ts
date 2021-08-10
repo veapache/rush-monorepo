@@ -1,14 +1,14 @@
 import { InputType, Field, } from '@nestjs/graphql'
-import { IsString } from 'class-validator'
+import { IsUUID } from 'class-validator'
 
 @InputType()
 export class OrderCreateInput {
   @Field()
-  @IsString()
+  @IsUUID("all", {message: 'Некорректный или несуществующий UUID'})
   userId: string
 
   @Field()
-  @IsString()
+  @IsUUID("all", {message: 'Некорректный или несуществующий UUID'})
   vehicleId: string
 
   @Field({ nullable: true })

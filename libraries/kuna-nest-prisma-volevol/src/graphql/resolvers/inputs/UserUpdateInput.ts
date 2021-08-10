@@ -1,21 +1,19 @@
 import { InputType, Field, } from '@nestjs/graphql'
-import { IsEmail, IsString, Length } from 'class-validator'
+import { IsEmail, IsNotEmpty, Length } from 'class-validator'
 
 @InputType()
 export class UserUpdateInput {
 
   @Field({ nullable: true })
-  @IsEmail()
-  @IsString()
+  @IsEmail({}, {message: 'Некорректный email'})
   email?: string
 
   @Field({ nullable: true })
-  @IsString()
+  @IsNotEmpty({message: 'Имя не может быть пустым'})
   name?: string
 
   @Field({ nullable: true })
-  @IsString()
-  @Length(4,16)
+  @Length(4, 16, {message: 'Длина пароля должна быть больше 4 и меньше 16'})
   password?: string
 
 }

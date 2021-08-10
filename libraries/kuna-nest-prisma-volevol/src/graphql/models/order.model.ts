@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { ObjectType, Field, ID, Int } from '@nestjs/graphql'
+import { ObjectType, Field } from '@nestjs/graphql'
 import { User } from './user.model'
 import { Vehicle } from './vehicle.model'
 

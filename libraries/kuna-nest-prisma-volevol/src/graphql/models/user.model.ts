@@ -1,6 +1,4 @@
-import 'reflect-metadata'
-import { ObjectType, Field, Int } from '@nestjs/graphql'
-import { IsEmail } from 'class-validator'
+import { ObjectType, Field } from '@nestjs/graphql'
 import { Order } from './order.model'
 
 @ObjectType()
@@ -9,8 +7,7 @@ export class User {
   @Field((type) => String)
   id: string
 
-  @Field()
-  @IsEmail()
+  @Field((type) => String)
   email: string
 
   @Field((type) => String)

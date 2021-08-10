@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { Injectable, Inject } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
+import { DIPrisma } from 'src/DIP';
 import { OrderDto } from './order.dto';
 
 class OrderCreateInput {
@@ -16,14 +17,14 @@ class OrderUpdateInput {
 @Injectable()
 export class OrderService {
     
-    constructor(private prismaService: PrismaService) {}
+    constructor(@Inject(DIPrisma) private readonly prisma: PrismaClient) {}
 
     async findAll(): Promise<OrderDto[]> {
-        return await this.prismaService.order.findMany()
+        return await this.prisma.order.findMany()
     }
 
     async findOne(id: string): Promise<OrderDto> {
-        return this.prismaService.order.findUnique({
+        return this.prisma.order.findUnique({
             where: {
                 id
             }
@@ -31,13 +32,13 @@ export class OrderService {
     }
 
     async createOrder(data: OrderCreateInput): Promise<OrderDto> {
-        return await this.prismaService.order.create({
+        return await this.prisma.order.create({
             data
         })
     }
 
     async updateOrder(id: string, data: OrderUpdateInput): Promise<OrderDto> {
-        return this.prismaService.order.update({
+        return this.prisma.order.update({
             where: {
                 id
             },
@@ -46,7 +47,7 @@ export class OrderService {
     }
 
     async deleteOrder(id: string): Promise<OrderDto> {
-        return this.prismaService.order.delete({
+        return this.prisma.order.delete({
             where: {
                 id
             }

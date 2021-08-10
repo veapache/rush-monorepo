@@ -1,13 +1,5 @@
 import 'reflect-metadata'
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Args,
-  Context,
-  InputType,
-  Field,
-} from '@nestjs/graphql'
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
 import { Inject } from '@nestjs/common'
 import { PrismaService } from 'src/prisma/prisma.service'
 
@@ -28,7 +20,7 @@ export class OrderResolver {
   }
 
   @Mutation((returns) => Order)
-  createOrder( @Args('data') data: OrderCreateInput, @Context() ctx): Promise<Order> {
+  createOrder(@Context() ctx: any, @Args('data') data: OrderCreateInput): Promise<Order> {
     return this.prismaService.order.create({
       data: {
         userId: data.userId,
@@ -38,11 +30,7 @@ export class OrderResolver {
   }
 
   @Mutation((returns) => Order)
-  updateOrder(
-    @Args('id') id: string, 
-    @Args('data') data: OrderUpdateInput, 
-    @Context() ctx: any
-  ): Promise<Order> {
+  updateOrder(@Context() ctx: any, @Args('id') id: string, @Args('data') data: OrderUpdateInput): Promise<Order> {
     return this.prismaService.order.update({
       where: {
         id
@@ -52,7 +40,7 @@ export class OrderResolver {
   }
 
   @Mutation((returns) => Order, { nullable: true })
-  async deleteOrder( @Args('id') id: string, @Context() ctx): Promise<Order | null> {
+  async deleteOrder(@Context() ctx: any, @Args('id') id: string): Promise<Order | null> {
     return this.prismaService.order.delete({
       where: {
         id: id,
@@ -61,7 +49,7 @@ export class OrderResolver {
   }
 
   @Query((returns) => [Order], { nullable: true })
-  async allOrders(@Context() ctx): Promise<Order[]> {
+  async allOrders(@Context() ctx: any): Promise<Order[]> {
     return this.prismaService.order.findMany()
   }
 }

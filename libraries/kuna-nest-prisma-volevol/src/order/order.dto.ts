@@ -1,4 +1,4 @@
-import {IsString, Length, IsEmail, IsUUID} from "class-validator"
+import {IsString, IsUUID} from "class-validator"
 
 
 export class OrderDto {

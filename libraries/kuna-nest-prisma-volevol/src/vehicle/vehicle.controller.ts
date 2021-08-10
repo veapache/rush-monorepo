@@ -1,5 +1,4 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, UsePipes } from '@nestjs/common';
-import { ValidationPipe } from 'src/pipes/validation.pipe';
+import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
 import { VehicleService } from './vehicle.service';
 import { VehicleDto } from './vehicle.dto';
 import { OrderDto } from 'src/order/order.dto';
@@ -23,7 +22,6 @@ export class VehicleController {
         return this.vehicleService.findOrdersById(id)
     }
 
-    @UsePipes(ValidationPipe)
     @Post()
     async createVehicle(@Body() data: VehicleDto): Promise<VehicleDto> {
         return this.vehicleService.createVehicle(data)
