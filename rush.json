@@ -386,10 +386,14 @@
     },
     {
       "packageName": "alex01aik-npm-ts-package",
-      "projectFolder": "libraries/alex01aik-npm-ts-package"
+      "projectFolder": "libraries/alex01aik"
     },
     {
-      "packageName": "kuna-my-package",
+      "packageName": "alex01aik-nest-app",
+      "projectFolder": "libraries/alex01aik-nest-app"
+    },
+    {
+      "packageName": "prisma-project",
       "projectFolder": "libraries/volevol-npm-ts-package"
     },
     {
