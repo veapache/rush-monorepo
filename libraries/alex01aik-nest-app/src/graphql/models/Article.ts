@@ -3,21 +3,15 @@ import { Length, IsNotEmpty } from 'class-validator';
 
 @ObjectType()
 export class Article {
-  @Field((type) => String)
+  @Field()
   @IsNotEmpty()
   id: string;
 
-  @Field((type) => String)
+  @Field()
   @IsNotEmpty()
   title: string;
 
-  @Field((type) => String)
+  @Field()
   @Length(24)
   content: string;
-  // @Field((type) => Boolean)
-  // published: boolean;
-  // @Field((type) => Date)
-  // createdAt: Date;
-  // @Field((type) => Date)
-  // updatedAt: Date;
 }

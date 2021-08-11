@@ -1,15 +1,14 @@
 import { GqlCrudModule } from './graphql/resolvers/GqlCrudModule';
-import { AuthorResolver } from './graphql/resolvers/crud/Author/AuthorResolvers';
 import { UsersModule } from './users/users.module';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
+import { GraphqlModule } from './graphql/graphql.module';
 
 @Module({
   imports: [
+    GraphqlModule,
     PrismaModule,
     UsersModule,
     GqlCrudModule,
@@ -19,7 +18,7 @@ import { join } from 'path';
       playground: true,
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService, AuthorResolver],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

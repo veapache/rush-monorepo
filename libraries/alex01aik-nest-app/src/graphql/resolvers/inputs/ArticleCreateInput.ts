@@ -3,11 +3,11 @@ import { IsNotEmpty, Length } from 'class-validator';
 
 @InputType()
 export class ArticleCreateInput {
-  @Field((type) => String)
+  @Field()
   @IsNotEmpty()
   title: string;
 
-  @Field((type) => String)
+  @Field()
   @Length(24)
   content?: string;
 }

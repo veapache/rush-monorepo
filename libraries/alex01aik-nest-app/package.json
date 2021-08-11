@@ -20,10 +20,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
-    "init-postgres": "docker network create --subnet=15.0.0.0/16 --gateway=15.0.0.1 kuna-network",
-    "up-postgres": "docker-compose up -d",
-    "down-postgres": "docker-compose down",
-    "run-app": "docker-compose up -d | prisma migrate dev --name init | nest start --watch"
+    "migrate-db": "prisma migrate dev --name init",
+    "run-app": "prisma migrate dev --name init | nest start --watch"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

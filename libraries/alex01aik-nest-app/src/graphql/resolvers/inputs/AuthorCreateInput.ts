@@ -1,18 +1,17 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { IsEmail, Length, IsNotEmpty } from 'class-validator';
-import { Article } from 'src/graphql/models/Article';
 
 @InputType()
 export class AuthorCreateInput {
-  @Field((type) => String)
+  @Field()
   @IsNotEmpty()
   username: string;
 
-  @Field((type) => String)
+  @Field()
   @IsEmail()
   email: string;
 
-  @Field((type) => String)
+  @Field()
   @Length(6, 24)
   password: string;
 }

@@ -1,4 +1,5 @@
-import { UpdateOneAuthorArgs } from './args/UpdateOneAuthorArgs';
+import { AuthorUpdateInput } from './../../inputs/AuthorUpdateInput';
+import { AuthorWhereUniqueInput } from './../../inputs/AuthorWhereUniqueInput';
 import { AuthorCreateInput } from './../../inputs/AuthorCreateInput';
 import { Inject } from '@nestjs/common';
 import {
@@ -14,12 +15,12 @@ import { DIPrisma } from 'src/DIP';
 import { PrismaClient } from '@prisma/client';
 import { Article } from 'src/graphql/models/Article';
 
-@Resolver((of) => Author)
+@Resolver(() => Author)
 export class AuthorResolver {
   constructor(@Inject(DIPrisma) private readonly prisma: PrismaClient) {}
 
-  @ResolveField((returns) => [Article])
-  async getArticlesByUserId(@Parent() author: Author) {
+  @ResolveField(() => [Article])
+  async articles(@Parent() author: Author) {
     return await this.prisma.article.findMany({
       where: {
         authorId: author.id,
@@ -27,19 +28,27 @@ export class AuthorResolver {
     });
   }
 
-  @Query((returns) => Author)
-  async getAuthor(@Args('id', { type: () => String }) id: string) {
+  @Query(() => Author)
+  async findUniqueAuthor(@Args('where') uniqueArgs: AuthorWhereUniqueInput) {
     return await this.prisma.user.findUnique({
-      where: { id },
+      where: { id: uniqueArgs.id },
     });
   }
 
-  @Query((returns) => [Author])
-  async getAuthors() {
+  @Query(() => [Author])
+  async findManyAuthors() {
     return await this.prisma.user.findMany({});
   }
 
-  @Mutation((returns) => Author)
+  @Query(() => [Author])
+  async findOnePageOfAuthors() {
+    return await this.prisma.user.findMany({
+      skip: 2,
+      take: 2,
+    });
+  }
+
+  @Mutation(() => Author)
   async createOneAuthor(@Args('args') args: AuthorCreateInput) {
     return await this.prisma.user.create({
       data: {
@@ -48,14 +57,14 @@ export class AuthorResolver {
     });
   }
 
-  @Mutation((returns) => Author)
+  @Mutation(() => Author)
   async updateOneAuthor(
-    @Args('id', { type: () => String }) id: string,
-    @Args() updateArgs: UpdateOneAuthorArgs,
+    @Args('where') uniqueArgs: AuthorWhereUniqueInput,
+    @Args('data') updateArgs: AuthorUpdateInput,
   ) {
     return await this.prisma.user.update({
       where: {
-        id,
+        id: uniqueArgs.id,
       },
       data: {
         ...updateArgs,
@@ -63,11 +72,11 @@ export class AuthorResolver {
     });
   }
 
-  @Mutation((returns) => Author)
-  async deleteOneAuthor(@Args('id', { type: () => String }) id: string) {
+  @Mutation(() => Author)
+  async deleteOneAuthor(@Args('where') uniqueArgs: AuthorWhereUniqueInput) {
     return await this.prisma.user.delete({
       where: {
-        id,
+        id: uniqueArgs.id,
       },
     });
   }

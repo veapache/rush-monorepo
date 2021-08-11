@@ -4,19 +4,19 @@ import { ObjectType, Field } from '@nestjs/graphql';
 
 @ObjectType()
 export class Author {
-  @Field((type) => String)
+  @Field()
   @IsNotEmpty()
   id: string;
 
-  @Field((type) => String)
+  @Field()
   @IsEmail()
   email: string;
 
-  @Field((type) => String)
+  @Field()
   @IsNotEmpty()
   password: string;
 
-  @Field((type) => String)
+  @Field()
   @IsNotEmpty()
   username: string;
 

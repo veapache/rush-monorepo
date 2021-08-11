@@ -1,17 +1,18 @@
+import { ArticleUpdateInput } from './../../inputs/ArticleUpdateInput';
+import { ArticleWhereUniqueInput } from './../../inputs/ArticleWhereUniqueInput';
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { Article } from 'src/graphql/models/Article';
 import { DIPrisma } from 'src/DIP';
 import { PrismaClient } from '@prisma/client';
 import { Inject } from '@nestjs/common';
 import { ArticleCreateInput } from '../../inputs/ArticleCreateInput';
-import { UpdateOneArticleArgs } from '../Article/args/UpdateOneArticleArgs';
 
-@Resolver((of) => Article)
+@Resolver(() => Article)
 export class ArticleResolver {
   constructor(@Inject(DIPrisma) private readonly prisma: PrismaClient) {}
 
-  @Mutation((returns) => Article)
-  async createOneArticle(
+  @Mutation(() => Article)
+  async createOneAtricle(
     @Args('data') data: ArticleCreateInput,
     @Args('authorId') authorId: string,
   ) {
@@ -28,21 +29,21 @@ export class ArticleResolver {
     });
   }
 
-  @Query((returns) => Article)
-  async getArticle(@Args('id', { type: () => String }) id: string) {
+  @Query(() => Article)
+  async findUnique(@Args('where') uniqueArgs: ArticleWhereUniqueInput) {
     return await this.prisma.article.findUnique({
-      where: { id },
+      where: { id: uniqueArgs.id },
     });
   }
 
-  @Mutation((returns) => Article)
-  async updateOneArticle(
-    @Args('id', { type: () => String }) id: string,
-    @Args() updateArgs: UpdateOneArticleArgs,
+  @Mutation(() => Article)
+  async updateOne(
+    @Args('where') uniqueArgs: ArticleWhereUniqueInput,
+    @Args('data') updateArgs: ArticleUpdateInput,
   ) {
     return await this.prisma.article.update({
       where: {
-        id,
+        id: uniqueArgs.id,
       },
       data: {
         ...updateArgs,
@@ -50,11 +51,11 @@ export class ArticleResolver {
     });
   }
 
-  @Mutation((returns) => Article)
-  async deleteOneArticle(@Args('id', { type: () => String }) id: string) {
+  @Mutation(() => Article)
+  async deleteOne(@Args('where') uniqueArgs: ArticleWhereUniqueInput) {
     return await this.prisma.article.delete({
       where: {
-        id,
+        id: uniqueArgs.id,
       },
     });
   }
