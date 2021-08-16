@@ -6,8 +6,8 @@ import { PrismaClient } from '@prisma/client';
 import { Order } from 'src/graphql/models/order.model';
 
 import { CreateOneOrderArgs } from './args/CreateOneOrderArgs';
-import { FindUniqueOrderArgs } from './args/FindUniqueOrderArgs';
 import { UpdateOneOrderArgs } from './args/UpdateOneOrderArgs';
+import { FindUniqueOrderArgs } from './args/FindUniqueOrderArgs';
 
 @Resolver(Order)
 export class OrderResolver {
