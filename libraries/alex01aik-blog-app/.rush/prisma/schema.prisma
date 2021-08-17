@@ -1,0 +1,100 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id       String    @id @default(uuid())
+  email    String    @unique
+  username String
+  password String
+  articles Article[]
+}
+
+model Article {
+  id            String          @id @default(uuid())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  hide          Boolean         @default(false)
+  publishDate   DateTime
+  author        User            @relation(fields: [authorId], references: [id])
+  authorId      String
+  localeAricles LocaleArticle[]
+}
+
+model Localization {
+  id         String          @id @default(uuid())
+  locale     String
+  links      Link[]
+  seos       SEO[]
+  articles   LocaleArticle[]
+  hashtags   Hashtag[]
+  categories Category[]
+}
+
+model Link {
+  id     String       @id @default(uuid())
+  url    String       @unique
+  name   String
+  langId String
+  lang   Localization @relation(fields: [langId], references: [id])
+}
+
+model SEO {
+  url         String
+  title       String
+  description String
+  keywords    String[]
+  langId      String
+  lang        Localization @relation(fields: [langId], references: [id])
+  seoAssets   String
+
+  @@id([url, langId])
+}
+
+model LocaleArticle {
+  content    String
+  langId     String
+  lang       Localization @relation(fields: [langId], references: [id])
+  articleId  String
+  article    Article      @relation(fields: [articleId], references: [id])
+  title      String
+  img        String
+  categoryId String
+  category   Category     @relation(fields: [categoryId], references: [id])
+  descrption String
+  keywords   String[]
+  seoAssets  String
+
+  hashtagsToArticles HashtagsToArticles[]
+  @@id(fields: [langId, categoryId])
+}
+
+model HashtagsToArticles {
+  id                      String        @id @default(uuid())
+  article                 LocaleArticle @relation(references: [langId, categoryId], fields: [localeArticleLangId, localeArticleCategoryId])
+  hashtag                 Hashtag       @relation(references: [id], fields: [hashtagId])
+  localeArticleLangId     String
+  localeArticleCategoryId String
+  hashtagId               String
+}
+
+model Hashtag {
+  id                 String               @id @default(uuid())
+  name               String
+  langId             String
+  lang               Localization         @relation(fields: [langId], references: [id])
+  hashtagsToArticles HashtagsToArticles[]
+}
+
+model Category {
+  id       String          @id @default(uuid())
+  name     String
+  langId   String
+  lang     Localization    @relation(fields: [langId], references: [id])
+  articles LocaleArticle[]
+}

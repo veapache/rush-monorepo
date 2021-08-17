@@ -1,0 +1,64 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Article {
+  id: String!
+  title: String!
+  content: String!
+}
+
+type Author {
+  id: String!
+  email: String!
+  password: String!
+  username: String!
+  articles: [Article!]
+}
+
+type Query {
+  findUniqueAuthor(where: AuthorWhereUniqueInput!): Author!
+  findManyAuthors: [Author!]!
+  findOnePageOfAuthors: [Author!]!
+  findUnique(where: ArticleWhereUniqueInput!): Article!
+}
+
+input AuthorWhereUniqueInput {
+  id: String!
+  email: String!
+}
+
+input ArticleWhereUniqueInput {
+  id: String!
+}
+
+type Mutation {
+  createOneAuthor(args: AuthorCreateInput!): Author!
+  updateOneAuthor(data: AuthorUpdateInput!, where: AuthorWhereUniqueInput!): Author!
+  deleteOneAuthor(where: AuthorWhereUniqueInput!): Author!
+  createOneAtricle(authorId: String!, data: ArticleCreateInput!): Article!
+  updateOne(data: ArticleUpdateInput!, where: ArticleWhereUniqueInput!): Article!
+  deleteOne(where: ArticleWhereUniqueInput!): Article!
+}
+
+input AuthorCreateInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input AuthorUpdateInput {
+  username: String
+  email: String
+  password: String
+}
+
+input ArticleCreateInput {
+  title: String!
+  content: String!
+}
+
+input ArticleUpdateInput {
+  title: String
+  content: String
+}
