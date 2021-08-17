@@ -1,0 +1,47 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Article {
+  id: String!
+  cteatedAt: String!
+  updatedAt: String!
+  hide: Boolean!
+  publishDate: String!
+}
+
+type User {
+  id: String!
+  email: String!
+  password: String!
+  username: String!
+  articles: [Article!]
+}
+
+type Query {
+  findUniqueUser(where: UserWhereUniqueInput!): User!
+  findManyUsers: [User!]!
+}
+
+input UserWhereUniqueInput {
+  id: String!
+  email: String!
+}
+
+type Mutation {
+  createOneUser(args: UserCreateInput!): User!
+  updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
+  deleteOneUser(where: UserWhereUniqueInput!): User!
+}
+
+input UserCreateInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input UserUpdateInput {
+  username: String
+  email: String
+  password: String
+}
