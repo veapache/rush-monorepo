@@ -1,14 +1,20 @@
 import { Injectable, BadRequestException, NotFoundException } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { User } from "src/graphql/models/user.model";
 import { UserToken } from "src/graphql/models/userToken.model";
 import { PrismaService } from "src/prisma/prisma.service";
 import { AuthLoginInput } from "../../inputs/AuthLoginInput";
 import { AuthRegisterInput } from "../../inputs/AuthRegisterInput";
+import { JwtDto } from "../../inputs/JwtDto";
 import { AuthHelper } from "./AuthHelper";
 
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly prisma: PrismaService) {}
+    constructor(
+        private readonly prisma: PrismaService,
+        private readonly jwt: JwtService
+    ) {}
 
     public async login(input: AuthLoginInput): Promise<UserToken> {
         const found  = await this.prisma.user.findUnique({
@@ -54,7 +60,16 @@ export class AuthService {
     }
 
     private signToken(id: string): string {
-        return 'TEMP TOKEN FOR ID ' + id
+        const payload: JwtDto = { userId: id}
+        return this.jwt.sign(payload)
+    }
+
+    public async validateUser(userId: string): Promise<User> {
+        return this.prisma.user.findUnique({
+            where: {
+                id: userId
+            }
+        })
     }
 
 }
