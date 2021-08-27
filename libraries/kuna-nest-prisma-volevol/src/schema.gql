@@ -2,15 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
-  id: String!
-  email: String!
-  name: String!
-  password: String
-  orderIds: [String!]
-  Order: [Order!]
-}
-
 type Vehicle {
   id: String!
   brand: String!
@@ -31,6 +22,20 @@ type Order {
   Vehicle: Vehicle
 }
 
+type User {
+  id: String!
+  email: String!
+  name: String!
+  password: String
+  orderIds: [String!]
+  Order: [Order!]
+}
+
+type UserToken {
+  token: String!
+  user: User!
+}
+
 type Query {
   getAllUsers: [User!]
   getUserById(id: String!): User
@@ -43,7 +48,6 @@ type Query {
 }
 
 type Mutation {
-  createUser(email: String!, name: String!, password: String!): User
   updateUser(email: String, name: String, password: String, id: String!): User
   deleteUser(id: String!): User
   createVehicle(brand: String!, model: String!, year: Float, cost: Float): Vehicle!
@@ -52,4 +56,18 @@ type Mutation {
   createOrder(delivery: String, payment: String, address: String, userId: String, vehicleId: String): Order!
   updateOrder(delivery: String, payment: String, address: String, id: String!): Order!
   deleteOrder(id: String!): Order!
+  login(input: AuthLoginInput!): UserToken!
+  register(input: AuthRegisterInput!): UserToken!
+}
+
+input AuthLoginInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+input AuthRegisterInput {
+  email: String!
+  name: String!
+  password: String!
 }
