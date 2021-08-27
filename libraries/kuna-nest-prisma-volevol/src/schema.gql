@@ -48,7 +48,6 @@ type Query {
 }
 
 type Mutation {
-  createUser(email: String!, name: String!, password: String!): User
   updateUser(email: String, name: String, password: String, id: String!): User
   deleteUser(id: String!): User
   createVehicle(brand: String!, model: String!, year: Float, cost: Float): Vehicle!

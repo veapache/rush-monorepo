@@ -20,7 +20,6 @@ export class VehicleResolver {
         return this.prisma.vehicle.findMany();
     }
 
-    @UseGuards(GqlAuthGuard)
     @Query(() => Vehicle, { nullable: true })
     async getVehicleById(@Args() args: FindUniqueVehicleArgs): Promise<Vehicle> {
         return this.prisma.vehicle.findUnique({ where: args });
